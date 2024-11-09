@@ -3,28 +3,27 @@ package Airfield;
 public abstract class Aircraft {
 
 
-    private String registration;
+    private Registration registration;
     private String model;
-    private int capacity;
+    private int numOfSeats;
 
 
     public Aircraft(){};
 
-    public Aircraft(String registration, String model, int capacity){
+    public Aircraft(Registration registration, String model, int numOfSeats){
         this.registration = registration;
         this.model = model;
-        this.capacity=capacity;
+        this.numOfSeats = numOfSeats;
     }
 
 
     public abstract void fly();
-    public abstract void showInfo();
 
-    public String getRegistration() {
+    public Registration getRegistration() {
         return registration;
     }
 
-    public void setRegistration(String registration) {
+    public void setRegistration(Registration registration) {
         this.registration = registration;
     }
 
@@ -36,11 +35,11 @@ public abstract class Aircraft {
         this.model = model;
     }
 
-    public int getCapacity() {
-        return capacity;
+    public int getNumOfSeats() {
+        return numOfSeats;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+    public void setNumOfSeats(int numOfSeats) {
+        this.numOfSeats = numOfSeats;
     }
 }

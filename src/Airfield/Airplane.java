@@ -1,14 +1,20 @@
 package Airfield;
 
+import java.util.Objects;
+
 public class Airplane extends Aircraft {
 
-    private Airline airline;
+    private String engineType;
+    private int numOfEngines;
+    private double currentFuelLevel;
 
     public Airplane(){}
 
-    public Airplane(String registration, String model, int capacity, Airline airline){
-        super(registration, model, capacity);
-        this.airline = airline;
+    public Airplane(Registration registration, String model, int numOfSeats, String engineType, int numOfEngines){
+        super(registration, model, numOfSeats);
+        this.engineType = engineType;
+        this.numOfEngines = numOfEngines;
+        this.currentFuelLevel = 0;
     }
 
 
@@ -17,16 +23,51 @@ public class Airplane extends Aircraft {
         System.out.println("Airplane flying");
     }
 
+
+    public String getEngineType() {
+        return engineType;
+    }
+
+    public void setEngineType(String engineType) {
+        this.engineType = engineType;
+    }
+
+    public int getNumOfEngines() {
+        return numOfEngines;
+    }
+
+    public void setNumOfEngines(int numOfEngines) {
+        this.numOfEngines = numOfEngines;
+    }
+
+    public double getCurrentFuelLevel() {
+        return currentFuelLevel;
+    }
+
+    public void setCurrentFuelLevel(double currentFuelLevel) {
+        this.currentFuelLevel = currentFuelLevel;
+    }
+
+
     @Override
-    public void showInfo() {
-        System.out.println("Airplane: " + getModel() +", Airline: " + getAirline());
+    public String toString() {
+        return "Airplane{" +
+                "engineType='" + engineType + '\'' +
+                ", numOfEngines=" + numOfEngines +
+                ", currentFuelLevel=" + currentFuelLevel +
+                '}';
     }
 
-    public String getAirline() {
-        return airline.getName();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Airplane airplane = (Airplane) o;
+        return numOfEngines == airplane.numOfEngines && Double.compare(currentFuelLevel, airplane.currentFuelLevel) == 0 && Objects.equals(engineType, airplane.engineType);
     }
 
-    public void setAirline(Airline airline) {
-        this.airline = airline;
+    @Override
+    public int hashCode() {
+        return Objects.hash(engineType, numOfEngines, currentFuelLevel);
     }
 }

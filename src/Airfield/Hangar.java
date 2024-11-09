@@ -1,18 +1,30 @@
 package Airfield;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Hangar {
     private String hangarId;
-    private int capacity;
-    private int currentAircraftCount;
+    private int airplaneSlots;
+    private int gliderSlots;
+    private int helicopterSlots;
+    private int hotAirBalloonSlots;
+    private final List<Aircraft> aircraftList;
 
 
-    public Hangar(){}
+
+    public Hangar(){
+        this.aircraftList = new ArrayList<>();
+    }
 
 
-    public Hangar(String hangarId, int capacity){
+    public Hangar(String hangarId, int airplaneSlots, int gliderSlots, int helicopterSlots, int hotAirBalloonSlots){
         this.hangarId=hangarId;
-        this.capacity=capacity;
-        this.currentAircraftCount=0;
+        this.airplaneSlots = airplaneSlots;
+        this.gliderSlots = gliderSlots;
+        this.helicopterSlots = helicopterSlots;
+        this.hotAirBalloonSlots = hotAirBalloonSlots;
+        this.aircraftList = new ArrayList<>();
     }
 
     public String getHangarId() {
@@ -23,42 +35,35 @@ public class Hangar {
         this.hangarId = hangarId;
     }
 
-    public int getCapacity() {
-        return capacity;
+    public int getAirplaneSlots() {
+        return airplaneSlots;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+    public void setAirplaneSlots(int airplaneSlots) {
+        this.airplaneSlots = airplaneSlots;
     }
 
-    public int getCurrentAircraftCount() {
-        return currentAircraftCount;
+    public int getGliderSlots() {
+        return gliderSlots;
     }
 
-    public void setCurrentAircraftCount(int currentAircraftCount) {
-        this.currentAircraftCount = currentAircraftCount;
+    public void setGliderSlots(int gliderSlots) {
+        this.gliderSlots = gliderSlots;
     }
 
-    public boolean addAircraft() {
-        if (currentAircraftCount < capacity) {
-            currentAircraftCount++;
-            System.out.println("Aircraft added to hangar " + hangarId);
-            return true;
-        } else {
-            System.out.println("Hangar " + hangarId + " is full.");
-            return false;
-        }
+    public int getHelicopterSlots() {
+        return helicopterSlots;
     }
 
-    public boolean removeAircraft() {
-        if (currentAircraftCount > 0) {
-            currentAircraftCount--;
-            System.out.println("Aircraft removed from hangar " + hangarId);
-            return true;
-        } else {
-            System.out.println("Hangar " + hangarId + " is empty.");
-            return false;
-        }
+    public void setHelicopterSlots(int helicopterSlots) {
+        this.helicopterSlots = helicopterSlots;
     }
 
+    public int getHotAirBalloonSlots() {
+        return hotAirBalloonSlots;
+    }
+
+    public void setHotAirBalloonSlots(int hotAirBalloonSlots) {
+        this.hotAirBalloonSlots = hotAirBalloonSlots;
+    }
 }

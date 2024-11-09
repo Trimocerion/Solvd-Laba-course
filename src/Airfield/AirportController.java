@@ -10,12 +10,12 @@ import java.util.Locale;
 
 public class AirportController {
 
-    private Airport airport;
-    private List<Flight> flights;
-    private List<Hangar> hangars;
-    private List<Runway> runways;
-    private ControlTower controlTower;
-    private FuelStation fuelStation;
+    protected Airport airport;
+    protected List<Flight> flights;
+    protected List<Hangar> hangars;
+    protected List<Runway> runways;
+    protected ControlTower controlTower;
+    protected FuelStation fuelStation;
 
     public AirportController(){}
 
@@ -44,8 +44,8 @@ public class AirportController {
     }
 
 
-    public void addHangar(String hangarName, int capacity) {
-        Hangar hangar = new Hangar(hangarName,capacity);
+    public void addHangar(String hangarId, int airplaneSlots, int gliderSlots, int helicopterSlots, int hotAirBalloonSlots) {
+        Hangar hangar = new Hangar(hangarId, airplaneSlots, gliderSlots,helicopterSlots,hotAirBalloonSlots);
         hangars.add(hangar);
     }
 
@@ -109,4 +109,11 @@ public class AirportController {
     }
 
 
+    public Airport getAirport() {
+        return airport;
+    }
+
+    public void setAirport(Airport airport) {
+        this.airport = airport;
+    }
 }

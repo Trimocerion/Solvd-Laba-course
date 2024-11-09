@@ -9,8 +9,8 @@ public class Helicopter extends Aircraft{
 
     public Helicopter(){}
 
-    public Helicopter(String registration, String model, int seats, double rotorDiameter){
-        super(registration, model, seats);
+    public Helicopter(Registration registration, String model, int numOfSeats, double rotorDiameter){
+        super(registration, model, numOfSeats);
         this.rotorDiameter = rotorDiameter;
     }
 
@@ -19,10 +19,6 @@ public class Helicopter extends Aircraft{
         System.out.println("Helicopter flying");
     }
 
-    @Override
-    public void showInfo() {
-
-    }
 
     public double getRotorDiameter() {
         return rotorDiameter;

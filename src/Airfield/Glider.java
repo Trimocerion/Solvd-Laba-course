@@ -7,8 +7,8 @@ public class Glider extends Aircraft{
 
     public Glider(){}
 
-    public Glider(String registration, String model,int capacity, double wingspan) {
-        super(registration, model, capacity);
+    public Glider(Registration registration, String model,int numOfSeats, double wingspan) {
+        super(registration, model, numOfSeats);
         this.wingspan = wingspan;
     }
 
@@ -16,10 +16,5 @@ public class Glider extends Aircraft{
     @Override
     public void fly() {
         System.out.println("Glider flying...");
-    }
-
-    @Override
-    public void showInfo() {
-        System.out.println("Glider Model: " + getModel() + ", Wingspan: " + wingspan + "m");
     }
 }

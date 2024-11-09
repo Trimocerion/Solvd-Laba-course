@@ -1,14 +1,21 @@
 package Airfield;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Airline {
     private String name;
     private String code;
+    private final List<Aircraft> aircraftList;
 
-    public Airline(){}
+    public Airline(){
+        this.aircraftList = new ArrayList<>();
+    }
 
     public Airline(String name, String code){
         this.name = name;
         this.code = code;
+        this.aircraftList = new ArrayList<>();
     }
 
     public String getName() {
@@ -26,4 +33,17 @@ public class Airline {
     public void setCode(String code) {
         this.code = code;
     }
+
+    public List<Aircraft> getAircraftList() {
+        return aircraftList;
+    }
+
+    public void addAircraft(Aircraft aircraft) {
+        aircraftList.add(aircraft);
+    }
+
+    public void removeAircraft(Aircraft aircraft) {
+        aircraftList.remove(aircraft);
+    }
+
 }

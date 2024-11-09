@@ -16,11 +16,11 @@ public class Main {
 
 
         //Aircraft
-        Aircraft airplane = new Airplane("N12345", "Commercial Jet", 180, lot);
-        Aircraft airplane2 = new Airplane("N12345", "Commercial Jet", 180, wizzair);
-        Aircraft helicopter = new Helicopter("H45678", "Rescue Helicopter", 6, 18);
-        Aircraft glider = new Glider("G56789", "Sport Glider", 1, 15);
-        Aircraft hotAirBalloon = new HotAirBalloon("B78901", "Tour Balloon", 4, 1200);
+        Aircraft airplane = new Airplane(new Registration("N12345"), "Commercial Jet", 180, "XXX", 2);
+        Aircraft airplane2 = new Airplane(new Registration("N12345"), "Commercial Jet", 180, "XX", 4);
+        Aircraft helicopter = new Helicopter(new Registration("H45678"), "Rescue Helicopter", 6, 18);
+        Aircraft glider = new Glider(new Registration("G56789"), "Sport Glider", 1, 15);
+        Aircraft hotAirBalloon = new HotAirBalloon(new Registration("B78901"), "Tour Balloon",8, 444, 1200, 150);
 
 
         // Gates
@@ -51,7 +51,7 @@ public class Main {
         AirportController airportController = new AirportController(airport1);
 
         //Hangar and runway maangaementdsa
-        airportController.addHangar("Main hangar", 25);
+        airportController.addHangar("Main hangar", 25, 12, 2, 2);
         airportController.addRunway(1,500);
 
         //passengers
