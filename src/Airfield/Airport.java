@@ -4,23 +4,48 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Airport {
+public final class Airport {
 
 
+    private static final int MAX_AIRPORTS = 100;
+    private static int totalAirports;
     private String name;
     private String location;
     private List<Terminal> terminals;
     private List<Employee> employees;
 
 
-    public Airport(){}
+    static {
+        totalAirports = 0;
+        System.out.println("Static block executed");
+    }
+
+
+    public Airport(){
+        totalAirports++;
+    }
 
 
     public Airport(String name, String location, List<Terminal>terminals){
+
+        if(totalAirports >= MAX_AIRPORTS){
+            throw new IllegalStateException("cannot create more than " + MAX_AIRPORTS + " airports.");
+        }
+
         this.name = name;
         this.location=location;
         this.terminals = terminals;
         this.employees = new ArrayList<>();
+
+        totalAirports++;
+    }
+
+    public static int getTotalAirports(){
+        return totalAirports;
+    }
+
+    public static int getMaxAirports(){
+        return MAX_AIRPORTS;
     }
 
     public String getName() {

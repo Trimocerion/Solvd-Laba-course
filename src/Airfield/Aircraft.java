@@ -1,6 +1,6 @@
 package Airfield;
 
-public abstract class Aircraft {
+public abstract class Aircraft implements Flyable,Maintainable{
 
 
     private Registration registration;
@@ -15,6 +15,18 @@ public abstract class Aircraft {
         this.model = model;
         this.numOfSeats = numOfSeats;
     }
+
+    @Override
+    public abstract void takeOff();
+
+    @Override
+    public abstract void land();
+
+    @Override
+    public void performMaintenance() {
+        System.out.println(model + " is undergoing maintenance.");
+    }
+
 
 
     public abstract void fly();

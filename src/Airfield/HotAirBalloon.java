@@ -1,6 +1,6 @@
 package Airfield;
 
-public class HotAirBalloon extends  Aircraft{
+public class HotAirBalloon extends  Aircraft implements Refuelable{
 
     private double envelopeVolume;
     private int burnerOutput;
@@ -9,6 +9,16 @@ public class HotAirBalloon extends  Aircraft{
 
 
     public HotAirBalloon(){}
+
+    @Override
+    public void takeOff() {
+        System.out.println(getModel() + " is taking off.");
+    }
+
+    @Override
+    public void land() {
+        System.out.println(getModel() + " is landing.");
+    }
 
 
     public HotAirBalloon(Registration registration, String model, int numOfSeats, double envelopeVolume, int burnerOutput, double maxLiftCapacity) {
@@ -47,5 +57,10 @@ public class HotAirBalloon extends  Aircraft{
 
     public void setMaxLiftCapacity(double maxLiftCapacity) {
         this.maxLiftCapacity = maxLiftCapacity;
+    }
+
+    @Override
+    public void refuel() {
+
     }
 }

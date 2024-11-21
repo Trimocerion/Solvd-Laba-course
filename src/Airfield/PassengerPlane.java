@@ -2,15 +2,20 @@ package Airfield;
 
 import java.util.Objects;
 
-public class Airplane extends Aircraft {
+public final class PassengerPlane extends Aircraft implements Refuelable, PassengerHandler{
 
     private String engineType;
     private int numOfEngines;
     private double currentFuelLevel;
 
-    public Airplane(){}
+    public PassengerPlane(){}
 
-    public Airplane(Registration registration, String model, int numOfSeats, String engineType, int numOfEngines){
+    @Override
+    public void takeOff() {
+        System.out.println(getModel() + " is taking off.");
+    }
+
+    public PassengerPlane(Registration registration, String model, int numOfSeats, String engineType, int numOfEngines){
         super(registration, model, numOfSeats);
         this.engineType = engineType;
         this.numOfEngines = numOfEngines;
@@ -62,12 +67,39 @@ public class Airplane extends Aircraft {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Airplane airplane = (Airplane) o;
-        return numOfEngines == airplane.numOfEngines && Double.compare(currentFuelLevel, airplane.currentFuelLevel) == 0 && Objects.equals(engineType, airplane.engineType);
+        PassengerPlane passengerPlane = (PassengerPlane) o;
+        return numOfEngines == passengerPlane.numOfEngines && Double.compare(currentFuelLevel, passengerPlane.currentFuelLevel) == 0 && Objects.equals(engineType, passengerPlane.engineType);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(engineType, numOfEngines, currentFuelLevel);
+    }
+
+
+    @Override
+    public void land() {
+        System.out.println("Passenger plane " + getModel() + " is landing.");
+    }
+
+    @Override
+    public void performMaintenance() {
+        System.out.println(" Maintenance of " + getModel() + "Passenger plane ");
+
+    }
+
+    @Override
+    public void refuel() {
+        System.out.println("Passenger plane " + getModel() + " is being refueled.");
+    }
+
+    @Override
+    public void boardPassengers() {
+        System.out.println(getModel() + " is boarding passengers.");
+    }
+
+    @Override
+    public void deboardPassengers() {
+        System.out.println(getModel() + " is deboarding passengers.");
     }
 }

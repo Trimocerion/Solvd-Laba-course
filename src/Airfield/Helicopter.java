@@ -1,6 +1,6 @@
 package Airfield;
 
-public class Helicopter extends Aircraft{
+public class Helicopter extends Aircraft implements Refuelable{
 
     private double rotorDiameter;
 
@@ -8,6 +8,19 @@ public class Helicopter extends Aircraft{
 
 
     public Helicopter(){}
+
+
+
+
+    @Override
+    public void takeOff() {
+        System.out.println(getModel() + " is taking off.");
+    }
+
+    @Override
+    public void land() {
+        System.out.println(getModel() + " is landing.");
+    }
 
     public Helicopter(Registration registration, String model, int numOfSeats, double rotorDiameter){
         super(registration, model, numOfSeats);
@@ -26,5 +39,10 @@ public class Helicopter extends Aircraft{
 
     public void setRotorDiameter(double rotorDiameter) {
         this.rotorDiameter = rotorDiameter;
+    }
+
+    @Override
+    public void refuel() {
+        System.out.println(getModel() + " is being refueled.");
     }
 }
