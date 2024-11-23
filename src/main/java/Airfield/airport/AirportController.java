@@ -1,12 +1,11 @@
-package Airfield;
+package Airfield.airport;
+
+import Airfield.aircraft.Aircraft;
+import Airfield.flights.*;
 
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class AirportController {
 

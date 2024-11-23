@@ -1,6 +1,6 @@
-package Airfield;
+package Airfield.aircraft;
 
-public class Glider extends Aircraft{
+public final class Glider extends Aircraft{
 
     private double wingspan;
 
@@ -17,7 +17,7 @@ public class Glider extends Aircraft{
         System.out.println(getModel() + " is landing.");
     }
 
-    public Glider(Registration registration, String model,int numOfSeats, double wingspan) {
+    public Glider(Registration registration, String model, int numOfSeats, double wingspan) {
         super(registration, model, numOfSeats);
         this.wingspan = wingspan;
     }

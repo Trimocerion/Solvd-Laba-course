@@ -1,4 +1,4 @@
-package Airfield;
+package Airfield.interfaces;
 
 public interface Maintainable {
 

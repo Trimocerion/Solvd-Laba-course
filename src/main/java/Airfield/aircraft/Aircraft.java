@@ -1,12 +1,14 @@
-package Airfield;
+package Airfield.aircraft;
 
-public abstract class Aircraft implements Flyable,Maintainable{
+import Airfield.interfaces.Flyable;
+import Airfield.interfaces.Maintainable;
+
+public abstract class Aircraft implements Flyable, Maintainable {
 
 
     private Registration registration;
     private String model;
     private int numOfSeats;
-
 
     public Aircraft(){};
 

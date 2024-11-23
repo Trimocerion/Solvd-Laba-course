@@ -1,4 +1,7 @@
-package Airfield;
+package Airfield.flights;
+
+import Airfield.aircraft.Aircraft;
+import Airfield.airport.Airport;
 
 import java.util.Date;
 

@@ -1,6 +1,8 @@
-package Airfield;
+package Airfield.aircraft;
 
-public final class Helicopter extends Aircraft implements Refuelable{
+import Airfield.interfaces.Refuelable;
+
+public final class Helicopter extends Aircraft implements Refuelable {
 
     private double rotorDiameter;
 

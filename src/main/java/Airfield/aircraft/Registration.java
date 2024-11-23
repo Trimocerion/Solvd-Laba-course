@@ -1,4 +1,4 @@
-package Airfield;
+package Airfield.aircraft;
 
 public class Registration {
 

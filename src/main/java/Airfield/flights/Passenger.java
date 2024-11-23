@@ -1,4 +1,4 @@
-package Airfield;
+package Airfield.flights;
 
 import java.util.ArrayList;
 import java.util.List;

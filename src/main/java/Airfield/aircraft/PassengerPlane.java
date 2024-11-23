@@ -1,8 +1,11 @@
-package Airfield;
+package Airfield.aircraft;
+
+import Airfield.interfaces.PassengerHandler;
+import Airfield.interfaces.Refuelable;
 
 import java.util.Objects;
 
-public final class PassengerPlane extends Aircraft implements Refuelable, PassengerHandler{
+public final class PassengerPlane extends Aircraft implements Refuelable, PassengerHandler {
 
     private String engineType;
     private int numOfEngines;

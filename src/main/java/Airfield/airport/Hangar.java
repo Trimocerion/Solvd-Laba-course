@@ -1,4 +1,6 @@
-package Airfield;
+package Airfield.airport;
+
+import Airfield.aircraft.Aircraft;
 
 import java.util.ArrayList;
 import java.util.List;

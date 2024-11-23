@@ -1,10 +1,10 @@
-package Airfield;
+package Airfield.airport;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public final class Airport {
+public class Airport {
 
 
     private static final int MAX_AIRPORTS = 100;

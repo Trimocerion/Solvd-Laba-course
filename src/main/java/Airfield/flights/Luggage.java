@@ -1,4 +1,4 @@
-package Airfield;
+package Airfield.flights;
 
 public class Luggage {
     private String id;

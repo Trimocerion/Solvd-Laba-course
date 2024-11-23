@@ -1,5 +1,15 @@
 package Airfield;
 
+import Airfield.aircraft.*;
+import Airfield.airport.Airport;
+import Airfield.airport.AirportController;
+import Airfield.airport.Gate;
+import Airfield.airport.Terminal;
+import Airfield.flights.Airline;
+import Airfield.flights.Flight;
+import Airfield.flights.Passenger;
+import Airfield.flights.Ticket;
+
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;

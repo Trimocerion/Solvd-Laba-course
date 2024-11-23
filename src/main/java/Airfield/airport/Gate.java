@@ -1,4 +1,4 @@
-package Airfield;
+package Airfield.airport;
 
 public class Gate {
 
