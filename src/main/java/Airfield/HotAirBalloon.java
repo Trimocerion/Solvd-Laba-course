@@ -1,6 +1,6 @@
 package Airfield;
 
-public class HotAirBalloon extends  Aircraft implements Refuelable{
+public final class HotAirBalloon extends  Aircraft implements Refuelable{
 
     private double envelopeVolume;
     private int burnerOutput;

@@ -1,6 +1,6 @@
 package Airfield;
 
-public class Helicopter extends Aircraft implements Refuelable{
+public final class Helicopter extends Aircraft implements Refuelable{
 
     private double rotorDiameter;
 
@@ -8,8 +8,6 @@ public class Helicopter extends Aircraft implements Refuelable{
 
 
     public Helicopter(){}
-
-
 
 
     @Override

@@ -38,8 +38,7 @@ public class Main {
         terminals1.add(mainTerminal);
         terminals1.add(regionalTerminal);
 
-        gates.removeLast();
-        gates.removeLast();
+
 
         List<Terminal> terminals2 = new ArrayList<>();
         terminals2.add(mainTerminal);
