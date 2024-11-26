@@ -1,5 +1,7 @@
 package Airfield.airport;
 
+import Airfield.exceptions.RunwayNotAvailableException;
+
 public class ControlTower {
 
     private String towerName;
@@ -10,13 +12,13 @@ public class ControlTower {
         this.towerName = towerName;
     }
 
-    public void assignRunway(Runway runway){
+    public void assignRunway(Runway runway) throws RunwayNotAvailableException {
         if(!runway.isOccupied()){
             runway.occupy();
             System.out.println("runway " + runway.getId() + " has been assigned succesfully.");
         }
         else{
-            System.out.println("runway " + runway.getId() + " is already occupied.");
+            throw new RunwayNotAvailableException("Runway is not available");
         }
     }
 

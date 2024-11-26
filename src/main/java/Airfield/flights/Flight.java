@@ -31,6 +31,12 @@ public class Flight {
         System.out.println("Aircraft " + aircraft.getRegistration() + " has been assigned to flight " + flightNumber);
     }
 
+    public void delayFlight(int delayMinutes) {
+        long newDepartureTime = departureTime.getTime() + (delayMinutes * 60 * 1000);
+        this.departureTime = new Date(newDepartureTime);
+    }
+
+
     public String getFlightNumber() {
         return flightNumber;
     }
@@ -84,8 +90,8 @@ public class Flight {
         this.departureTime = departureTime;
     }
 
-    public void getStatus() {
-        System.out.println("Flight status: " + flightNumber+ " - " + status.toString());
+    public String getStatus() {
+        return status.toString();
     }
 
     public void arrive(){

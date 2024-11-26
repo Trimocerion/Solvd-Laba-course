@@ -3,7 +3,7 @@ package Airfield.flights;
 public enum FlightStatus {
     SCHEDULED,
     DELAYED,
-    CANCELLED,
+    CANCELED,
     IN_AIR,
     LANDED,
     COMPLETED

@@ -5,6 +5,7 @@ import Airfield.airport.Airport;
 import Airfield.airport.AirportController;
 import Airfield.airport.Gate;
 import Airfield.airport.Terminal;
+import Airfield.exceptions.FlightOverbookedException;
 import Airfield.flights.Airline;
 import Airfield.flights.Flight;
 import Airfield.flights.Passenger;
@@ -76,7 +77,9 @@ public class Main {
         //creating a flight
         Flight flight1 = new Flight("1D",lot,airport1,airport2, Date.from(LocalDateTime.of(2024, Month.DECEMBER,20,12,0,0).atZone(ZoneId.systemDefault()).toInstant()));
 
-        airportController.addFlight(flight1);
+         airportController.addFlight(flight1);
+
+
 
         //issuing tickets for passengers
         Ticket ticket1 = new Ticket("123xc",flight1,passenger1,"12E");
@@ -86,7 +89,10 @@ public class Main {
         airportController.departFlight(flight1);
         flight1.arrive();
         flight1.complete();
-        
 
+        airportController.showAllFlights();
+
+        airportController.addFlight(flight1);
+        airportController.exportFlightDetails("exported.txt");
     }
 }
