@@ -1,31 +1,29 @@
 package Airfield.airport;
 
 import Airfield.aircraft.Aircraft;
+import Airfield.exceptions.HangarFullException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Hangar {
     private String hangarId;
-    private int airplaneSlots;
-    private int gliderSlots;
-    private int helicopterSlots;
-    private int hotAirBalloonSlots;
+    private final Map<String, Integer> aircraftSlots;
     private final List<Aircraft> aircraftList;
 
 
 
     public Hangar(){
+        this.aircraftSlots = new HashMap<>();
         this.aircraftList = new ArrayList<>();
     }
 
 
-    public Hangar(String hangarId, int airplaneSlots, int gliderSlots, int helicopterSlots, int hotAirBalloonSlots){
+    public Hangar(String hangarId, Map<String, Integer> aircraftSlots){
         this.hangarId=hangarId;
-        this.airplaneSlots = airplaneSlots;
-        this.gliderSlots = gliderSlots;
-        this.helicopterSlots = helicopterSlots;
-        this.hotAirBalloonSlots = hotAirBalloonSlots;
+        this.aircraftSlots = aircraftSlots;
         this.aircraftList = new ArrayList<>();
     }
 
@@ -37,35 +35,40 @@ public class Hangar {
         this.hangarId = hangarId;
     }
 
-    public int getAirplaneSlots() {
-        return airplaneSlots;
+
+    public Map<String, Integer> getAircraftSlots() {
+        return aircraftSlots;
     }
 
-    public void setAirplaneSlots(int airplaneSlots) {
-        this.airplaneSlots = airplaneSlots;
+    public List<Aircraft> getAircraftList() {
+        return aircraftList;
     }
 
-    public int getGliderSlots() {
-        return gliderSlots;
+    public void addAircraftSlots(String aircraftType, int slots){
+        this.aircraftSlots.put(aircraftType,slots);
     }
 
-    public void setGliderSlots(int gliderSlots) {
-        this.gliderSlots = gliderSlots;
+    public int getSlotsForAircraftType(String aircraftType){
+        return aircraftSlots.getOrDefault(aircraftType, 0);
     }
 
-    public int getHelicopterSlots() {
-        return helicopterSlots;
+    public void addAircraft(Aircraft aircraft) {
+        String aircraftType = aircraft.getType();
+
+        if (aircraftSlots.containsKey(aircraftType)) {
+            int availableSlots = aircraftSlots.get(aircraftType);
+            if (availableSlots > 0) {
+                aircraftList.add(aircraft);
+                aircraftSlots.put(aircraftType, availableSlots - 1);
+                System.out.println("Aircraft of type " + aircraft.getType() + " added: " + aircraft.getRegistration() + ". Available slots: " + (availableSlots - 1));
+            }
+            else {
+                throw new HangarFullException("No more available slots ");
+            }
+        }
+        System.out.println("No slots defined for aircraft type: " + aircraftType);
     }
 
-    public void setHelicopterSlots(int helicopterSlots) {
-        this.helicopterSlots = helicopterSlots;
-    }
 
-    public int getHotAirBalloonSlots() {
-        return hotAirBalloonSlots;
-    }
 
-    public void setHotAirBalloonSlots(int hotAirBalloonSlots) {
-        this.hotAirBalloonSlots = hotAirBalloonSlots;
-    }
 }

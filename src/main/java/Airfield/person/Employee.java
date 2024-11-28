@@ -1,16 +1,16 @@
-package Airfield.airport;
+package Airfield.person;
 
 import java.util.Objects;
 
-public class Employee {
+public class Employee extends Person {
 
     private String employeeId;
     private String name;
-    private String role;
+    private Role role;
 
     public Employee(){}
 
-    public Employee(String employeeId, String name, String role ){
+    public Employee(String employeeId, String name, Role role ){
         this.employeeId = employeeId;
         this.name = name;
         this.role = role;
@@ -33,11 +33,11 @@ public class Employee {
         this.name = name;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

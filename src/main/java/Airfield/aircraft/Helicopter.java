@@ -2,7 +2,7 @@ package Airfield.aircraft;
 
 import Airfield.interfaces.Refuelable;
 
-public final class Helicopter extends Aircraft implements Refuelable {
+public final class Helicopter extends Aircraft {
 
     private double rotorDiameter;
 
@@ -22,8 +22,8 @@ public final class Helicopter extends Aircraft implements Refuelable {
         System.out.println(getModel() + " is landing.");
     }
 
-    public Helicopter(Registration registration, String model, int numOfSeats, double rotorDiameter){
-        super(registration, model, numOfSeats);
+    public Helicopter(Registration registration, String model, int numOfSeats, String engineType, int numOfEngines, int maxFuelLevel, double rotorDiameter){
+        super( registration,  model,  engineType,  numOfEngines, maxFuelLevel, "helicopter");
         this.rotorDiameter = rotorDiameter;
     }
 
@@ -41,8 +41,4 @@ public final class Helicopter extends Aircraft implements Refuelable {
         this.rotorDiameter = rotorDiameter;
     }
 
-    @Override
-    public void refuel() {
-        System.out.println(getModel() + " is being refueled.");
-    }
 }

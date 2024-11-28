@@ -15,6 +15,34 @@ public class Runway {
         this.isOccupied=false;
     }
 
+    public void occupy() {
+        if (!isOccupied) {
+            isOccupied = true;
+            System.out.println("Runway " + id + " is now occupied.");
+        } else {
+            System.out.println("Runway " + id + " is already occupied.");
+        }
+    }
+
+    public void free() {
+        if (isOccupied) {
+            isOccupied = false;
+            System.out.println("Runway " + id + " is now free.");
+        } else {
+            System.out.println("Runway " + id + " is already free.");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Runway{" +
+                "id=" + id +
+                ", length=" + length +
+                ", isOccupied=" + isOccupied +
+                '}';
+    }
+
+
 
     public int getId() {
         return id;
@@ -39,15 +67,5 @@ public class Runway {
     public void setOccupied(boolean occupied) {
         isOccupied = occupied;
     }
-
-    public void occupy(){
-        isOccupied = true;
-    }
-
-    public void free(){
-        isOccupied = false;
-    }
-
-
 
 }

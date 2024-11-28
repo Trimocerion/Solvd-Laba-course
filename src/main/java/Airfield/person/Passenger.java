@@ -1,18 +1,20 @@
-package Airfield.flights;
+package Airfield.person;
+
+import Airfield.flights.Luggage;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class Passenger {
+public class Passenger extends Person {
 
-    private String name;
     private String passportNumber;
     private List<Luggage> luggageList;
 
     public Passenger(){}
 
-    public Passenger(String name, String passportNumber){
-        this.name = name;
+    public Passenger(String name, Date birthDate, String passportNumber){
+        super(name,birthDate);
         this.passportNumber = passportNumber;
         this.luggageList = new ArrayList<>();
     }
@@ -27,18 +29,10 @@ public class Passenger {
     }
 
     public void listLuggage(){
-        System.out.println(name);
+        System.out.println(getName());
         for(Luggage x : luggageList){
             System.out.println(x.getId() + " " + x.getWeight());
         }
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPassportNumber() {

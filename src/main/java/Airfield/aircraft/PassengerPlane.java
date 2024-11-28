@@ -1,15 +1,21 @@
 package Airfield.aircraft;
 
+import Airfield.exceptions.PassengerExceededException;
 import Airfield.interfaces.PassengerHandler;
 import Airfield.interfaces.Refuelable;
+import Airfield.person.Passenger;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
-public final class PassengerPlane extends Aircraft implements Refuelable, PassengerHandler {
+public final class PassengerPlane extends Aircraft implements PassengerHandler {
 
-    private String engineType;
-    private int numOfEngines;
-    private double currentFuelLevel;
+
+    private boolean hasWifi;
+    private int maxPassengers;
+
 
     public PassengerPlane(){}
 
@@ -18,11 +24,10 @@ public final class PassengerPlane extends Aircraft implements Refuelable, Passen
         System.out.println(getModel() + " is taking off.");
     }
 
-    public PassengerPlane(Registration registration, String model, int numOfSeats, String engineType, int numOfEngines){
-        super(registration, model, numOfSeats);
-        this.engineType = engineType;
-        this.numOfEngines = numOfEngines;
-        this.currentFuelLevel = 0;
+    public PassengerPlane(Registration registration, String model, String engineType, int numOfEngines, int maxFuelLevel, int maxPassengers, boolean hasWifi){
+        super(registration, model, engineType, numOfEngines, maxFuelLevel, "airplane");
+        this.maxPassengers = maxPassengers;
+        this.hasWifi = hasWifi;
     }
 
 
@@ -32,37 +37,13 @@ public final class PassengerPlane extends Aircraft implements Refuelable, Passen
     }
 
 
-    public String getEngineType() {
-        return engineType;
-    }
-
-    public void setEngineType(String engineType) {
-        this.engineType = engineType;
-    }
-
-    public int getNumOfEngines() {
-        return numOfEngines;
-    }
-
-    public void setNumOfEngines(int numOfEngines) {
-        this.numOfEngines = numOfEngines;
-    }
-
-    public double getCurrentFuelLevel() {
-        return currentFuelLevel;
-    }
-
-    public void setCurrentFuelLevel(double currentFuelLevel) {
-        this.currentFuelLevel = currentFuelLevel;
-    }
-
 
     @Override
     public String toString() {
         return "Airplane{" +
-                "engineType='" + engineType + '\'' +
-                ", numOfEngines=" + numOfEngines +
-                ", currentFuelLevel=" + currentFuelLevel +
+                "engineType='" + getEngineType() + '\'' +
+                ", numOfEngines=" + getNumOfEngines() +
+                ", currentFuelLevel=" + getCurrentFuelLevel() +
                 '}';
     }
 
@@ -71,12 +52,12 @@ public final class PassengerPlane extends Aircraft implements Refuelable, Passen
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PassengerPlane passengerPlane = (PassengerPlane) o;
-        return numOfEngines == passengerPlane.numOfEngines && Double.compare(currentFuelLevel, passengerPlane.currentFuelLevel) == 0 && Objects.equals(engineType, passengerPlane.engineType);
+        return getNumOfEngines() == passengerPlane.getNumOfEngines() && Double.compare(getCurrentFuelLevel(), passengerPlane.getCurrentFuelLevel()) == 0 && Objects.equals(getEngineType(), passengerPlane.getEngineType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(engineType, numOfEngines, currentFuelLevel);
+        return Objects.hash(getEngineType(), getNumOfEngines(), getCurrentFuelLevel());
     }
 
 
@@ -91,18 +72,77 @@ public final class PassengerPlane extends Aircraft implements Refuelable, Passen
 
     }
 
+
+
     @Override
-    public void refuel() {
-        System.out.println("Passenger plane " + getModel() + " is being refueled.");
+    public void boardPassenger(Passenger passenger) {
+
+         List<Passenger> passengerListAircraft = getPassengerList();
+
+       if(passengerListAircraft.size() >= maxPassengers){
+           throw new PassengerExceededException("Exceeded the number of passengers");
+       }
+       else{
+           passengerListAircraft.add(passenger);
+           System.out.println("Passenger added");
+       }
     }
 
     @Override
-    public void boardPassengers() {
-        System.out.println(getModel() + " is boarding passengers.");
+    public void boardPassengers(List<Passenger> passengerList) {
+
+        List<Passenger> passengerListAircraft = getPassengerList();
+
+        if(passengerList.size() >= maxPassengers) {
+            throw new PassengerExceededException("Exceeded the number of passengers.");
+        }
+        else {
+            passengerListAircraft.addAll(passengerList);
+            System.out.println("Passenger list added");
+        }
+
+    }
+
+    @Override
+    public void deboardPassenger(Passenger passenger) {
+
+        List<Passenger> passengerListAircraft = getPassengerList();
+
+        if(passenger == null) throw new IllegalArgumentException("Passenger null");
+
+        passengerListAircraft.remove(passenger);
+        System.out.println("removed passenger from the airplane.");
+
     }
 
     @Override
     public void deboardPassengers() {
-        System.out.println(getModel() + " is deboarding passengers.");
+        List<Passenger> passengerListAircraft = getPassengerList();
+
+        if(!passengerListAircraft.isEmpty()){
+            passengerListAircraft.clear();
+
+            System.out.println("All passengers deboarded.");
+        }
+        else{
+            System.out.println("Passenger list is already empty.");
+        }
+
+    }
+
+    public int getMaxPassengers() {
+        return maxPassengers;
+    }
+
+    public void setMaxPassengers(int maxPassengers) {
+        this.maxPassengers = maxPassengers;
+    }
+
+    public boolean isHasWifi() {
+        return hasWifi;
+    }
+
+    public void setHasWifi(boolean hasWifi) {
+        this.hasWifi = hasWifi;
     }
 }

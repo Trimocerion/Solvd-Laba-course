@@ -1,5 +1,7 @@
 package Airfield.flights;
 
+import Airfield.person.Passenger;
+
 public class Ticket {
 
     private String ticketNumber;

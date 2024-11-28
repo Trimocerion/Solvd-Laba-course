@@ -2,7 +2,7 @@ package Airfield.aircraft;
 
 import Airfield.interfaces.Refuelable;
 
-public final class HotAirBalloon extends  Aircraft implements Refuelable {
+public final class HotAirBalloon extends  Aircraft {
 
     private double envelopeVolume;
     private int burnerOutput;
@@ -23,8 +23,8 @@ public final class HotAirBalloon extends  Aircraft implements Refuelable {
     }
 
 
-    public HotAirBalloon(Registration registration, String model, int numOfSeats, double envelopeVolume, int burnerOutput, double maxLiftCapacity) {
-        super(registration, model,numOfSeats);
+    public HotAirBalloon(Registration registration, String model, String engineType, int numOfEngines, int maxFuelLevel, double envelopeVolume, int burnerOutput, double maxLiftCapacity) {
+        super( registration,  model,  engineType,  numOfEngines, maxFuelLevel, "hotAirBalloon");
         this.envelopeVolume = envelopeVolume;
         this.burnerOutput = burnerOutput;
         this.maxLiftCapacity = maxLiftCapacity;
@@ -59,10 +59,5 @@ public final class HotAirBalloon extends  Aircraft implements Refuelable {
 
     public void setMaxLiftCapacity(double maxLiftCapacity) {
         this.maxLiftCapacity = maxLiftCapacity;
-    }
-
-    @Override
-    public void refuel() {
-
     }
 }

@@ -2,35 +2,30 @@ package Airfield;
 
 import Airfield.aircraft.*;
 import Airfield.airport.Airport;
-import Airfield.airport.AirportController;
 import Airfield.airport.Gate;
+import Airfield.airport.Hangar;
 import Airfield.airport.Terminal;
-import Airfield.exceptions.FlightOverbookedException;
 import Airfield.flights.Airline;
 import Airfield.flights.Flight;
-import Airfield.flights.Passenger;
+import Airfield.person.Passenger;
 import Airfield.flights.Ticket;
 
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        //Airlines
+   /*     //Airlines
        Airline lot =  new Airline("Lot","Lot123");
        Airline wizzair = new Airline("Wizzair","wizz");
 
-
         //Aircraft
-        Aircraft airplane = new PassengerPlane(new Registration("N12345"), "Commercial Jet", 180, "XXX", 2);
-        Aircraft airplane2 = new PassengerPlane(new Registration("N12345"), "Commercial Jet", 180, "XX", 4);
+        Aircraft airplane = new PassengerPlane(new Registration("N12345"), "Commercial Jet", "XXX", 2, 2000, 165, false);
+        Aircraft airplane2 = new PassengerPlane(new Registration("N12345"), "Commercial Jet", "XXX", 2, 2137, 178, true);
         Aircraft helicopter = new Helicopter(new Registration("H45678"), "Rescue Helicopter", 6, 18);
-        Aircraft glider = new Glider(new Registration("G56789"), "Sport Glider", 1, 15);
         Aircraft hotAirBalloon = new HotAirBalloon(new Registration("B78901"), "Tour Balloon",8, 444, 1200, 150);
 
 
@@ -66,8 +61,8 @@ public class Main {
         airportController.addRunway(1,500);
 
         //passengers
-        Passenger passenger1 = new Passenger("Thomas Doe", "DSA12w3123");
-        Passenger passenger2 = new Passenger("Markus", "P123456789");
+        Passenger passenger1 = new Passenger("Thomas Doe", new Date("2000/12/12"), "DSA12w3123");
+        Passenger passenger2 = new Passenger("Markus", new Date("2000/12/12"), "P123456789");
 
         //add luggage to passengers
         passenger1.addLuggage("LUG123",20.4);
@@ -93,6 +88,27 @@ public class Main {
         airportController.showAllFlights();
 
         airportController.addFlight(flight1);
-        airportController.exportFlightDetails("exported.txt");
+        airportController.exportFlightDetails("exported.txt");*/
+
+     Map <String,Integer> has  = new HashMap<String,Integer>();
+
+     has.put("airplane",3);
+     has.put("hotAirBalloon",1);
+
+     Hangar test = new Hangar("Main",has);
+
+     System.out.println(test.getAircraftSlots());
+
+        Aircraft airplane = new PassengerPlane(new Registration("N12345"), "Commercial Jet", "XXX", 2, 2000, 165, false);
+        Aircraft hotAirBalloon = new HotAirBalloon(new Registration("B78901"), "Tour Balloon","X",2, 8, 444, 1200, 150);
+
+
+        test.addAircraft(airplane);
+        test.addAircraft(airplane);
+        test.addAircraft(airplane);
+        test.addAircraft(airplane);
+        test.addAircraft(hotAirBalloon);
+
+        System.out.println(Arrays.toString(Arrays.stream(test.getAircraftList().toArray()).toArray()));
     }
 }

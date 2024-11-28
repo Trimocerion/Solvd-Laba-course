@@ -1,5 +1,7 @@
 package Airfield.flights;
 
+import Airfield.person.Passenger;
+
 public class Luggage {
     private String id;
     private double weight;
