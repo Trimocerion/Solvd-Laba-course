@@ -66,7 +66,6 @@ public class Hangar {
                 throw new HangarFullException("No more available slots ");
             }
         }
-        System.out.println("No slots defined for aircraft type: " + aircraftType);
     }
 
 

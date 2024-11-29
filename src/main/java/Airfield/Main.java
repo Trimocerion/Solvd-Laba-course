@@ -104,10 +104,7 @@ public class Main {
 
 
         test.addAircraft(airplane);
-        test.addAircraft(airplane);
-        test.addAircraft(airplane);
-        test.addAircraft(airplane);
-        test.addAircraft(hotAirBalloon);
+
 
         System.out.println(Arrays.toString(Arrays.stream(test.getAircraftList().toArray()).toArray()));
     }
