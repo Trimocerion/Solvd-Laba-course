@@ -6,44 +6,31 @@ import Airfield.interfaces.Maintainable;
 import Airfield.interfaces.Refuelable;
 import Airfield.person.Employee;
 import Airfield.person.Passenger;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 public abstract class Aircraft implements Flyable, Maintainable, Refuelable {
 
-    @Setter
-    @Getter
     private Registration registration;
-    @Setter
     private String model;
-    @Getter
-    @Setter
     private String engineType;
-    @Getter
-    @Setter
     private int numOfEngines;
-    @Getter
     private double maxFuelLevel;
-    @Getter
-    @Setter
     private double currentFuelLevel;
-    @Getter
-    @Setter
     private List<Employee> crewMembers;
-    @Getter
-    @Setter
     private List<Passenger> passengerList;
-    @Getter
-    @Setter
     private String type;
 
 
-    public Aircraft(){};
+    public Aircraft(){}
 
-    public Aircraft(Registration registration, String model, String engineType, int numOfEngines, double maxFuelLevel, String type){
+    public Aircraft(Registration registration, String model, String engineType, int numOfEngines, double maxFuelLevel){
         this.registration = registration;
         this.model = model;
         this.engineType = engineType;
@@ -52,7 +39,6 @@ public abstract class Aircraft implements Flyable, Maintainable, Refuelable {
         this.currentFuelLevel = 0;
         crewMembers = new ArrayList<>();
         passengerList = new ArrayList<>();
-        this.type = type;
     }
 
     public abstract void fly();

@@ -23,8 +23,9 @@ public final class Helicopter extends Aircraft {
     }
 
     public Helicopter(Registration registration, String model, int numOfSeats, String engineType, int numOfEngines, int maxFuelLevel, double rotorDiameter){
-        super( registration,  model,  engineType,  numOfEngines, maxFuelLevel, "helicopter");
+        super( registration,  model,  engineType,  numOfEngines, maxFuelLevel);
         this.rotorDiameter = rotorDiameter;
+        setType("helicopter");
     }
 
     @Override

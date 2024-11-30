@@ -25,9 +25,10 @@ public final class PassengerPlane extends Aircraft implements PassengerHandler {
     }
 
     public PassengerPlane(Registration registration, String model, String engineType, int numOfEngines, int maxFuelLevel, int maxPassengers, boolean hasWifi){
-        super(registration, model, engineType, numOfEngines, maxFuelLevel, "airplane");
+        super(registration, model, engineType, numOfEngines, maxFuelLevel);
         this.maxPassengers = maxPassengers;
         this.hasWifi = hasWifi;
+        setType("airplane");
     }
 
 

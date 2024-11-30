@@ -24,10 +24,11 @@ public final class HotAirBalloon extends  Aircraft {
 
 
     public HotAirBalloon(Registration registration, String model, String engineType, int numOfEngines, int maxFuelLevel, double envelopeVolume, int burnerOutput, double maxLiftCapacity) {
-        super( registration,  model,  engineType,  numOfEngines, maxFuelLevel, "hotAirBalloon");
+        super( registration,  model,  engineType,  numOfEngines, maxFuelLevel);
         this.envelopeVolume = envelopeVolume;
         this.burnerOutput = burnerOutput;
         this.maxLiftCapacity = maxLiftCapacity;
+        setType("hotAirBalloon");
     }
 
     @Override

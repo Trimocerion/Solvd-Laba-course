@@ -1,7 +1,6 @@
 package Airfield.aircraft;
 
 import Airfield.interfaces.CargoHandler;
-import Airfield.interfaces.Refuelable;
 
 public class CargoPlane extends Aircraft implements CargoHandler {
 
@@ -14,25 +13,26 @@ public class CargoPlane extends Aircraft implements CargoHandler {
     public CargoPlane(){}
 
     public CargoPlane(Registration registration, String model, String engineType, int numOfEngines,int maxFuelLevel, double maxCargoCapacity) {
-        super( registration,  model,  engineType,  numOfEngines, maxFuelLevel, "airplane");
+        super( registration,  model,  engineType,  numOfEngines, maxFuelLevel);
         this.maxCargoCapacity = maxCargoCapacity;
+        setType("aircraft");
         currentCargoWeight = 0;
     }
 
 
     @Override
     public void takeOff() {
-
+        System.out.println("Plane taking off.");
     }
 
     @Override
     public void land() {
-
+        System.out.println("Plane landing.");
     }
 
     @Override
     public void fly() {
-
+        System.out.println("Plane flying");
     }
 
     @Override
