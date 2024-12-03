@@ -95,6 +95,8 @@ public class Main {
 
      System.out.println("--------------");
 
+        airport1.exportFlightDetails("exported.txt");
+
 
 
         //issuing tickets for passengers
@@ -109,7 +111,7 @@ public class Main {
 
 
 
-        airport1.exportFlightDetails("exported.txt");
+
 
 
 
