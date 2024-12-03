@@ -14,19 +14,20 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class Main {
     public static void main(String[] args) {
 
-   /*     //Airlines
+        //Airlines
        Airline lot =  new Airline("Lot","Lot123");
        Airline wizzair = new Airline("Wizzair","wizz");
 
         //Aircraft
         Aircraft airplane = new PassengerPlane(new Registration("N12345"), "Commercial Jet", "XXX", 2, 2000, 165, false);
         Aircraft airplane2 = new PassengerPlane(new Registration("N12345"), "Commercial Jet", "XXX", 2, 2137, 178, true);
-        Aircraft helicopter = new Helicopter(new Registration("H45678"), "Rescue Helicopter", 6, 18);
-        Aircraft hotAirBalloon = new HotAirBalloon(new Registration("B78901"), "Tour Balloon",8, 444, 1200, 150);
+        Aircraft helicopter = new Helicopter(new Registration("H45678"), "Rescue Helicopter", "Jet", 1, 250, 15);
+        Aircraft hotAirBalloon = new HotAirBalloon(new Registration("B78901"), "Tour Balloon","XX" ,444, 1200, 150, 15, 111);
 
 
 
@@ -50,15 +51,27 @@ public class Main {
         terminals2.add(mainTerminal);
 
         //airports
-        Airport airport1 = new Airport("International airport", "Poland", terminals1);
-        Airport airport2 = new Airport("Regional Airport", "Hungary", terminals2);
+        Airport airport1 = new Airport("International airport", "Poland");
+        Airport airport2 = new Airport("Regional Airport", "Hungary");
 
-        //airport controller
-        AirportController airportController = new AirportController(airport1);
 
         //Hangar and runway maangaementdsa
-        airportController.addHangar("Main hangar", 25, 12, 2, 2);
-        airportController.addRunway(1,500);
+
+
+
+     Map<String, Integer> has = new HashMap<String, Integer>();
+
+     has.put("airplane", 3);
+     has.put("hotAirBalloon", 1);
+
+     Hangar hangar1 = new Hangar("Main", has);
+
+     System.out.println(hangar1.getAircraftSlots());
+     hangar1.addAircraft(airplane);
+
+
+     airport1.addHangar(hangar1);
+        airport1.addRunway(1,500);
 
         //passengers
         Passenger passenger1 = new Passenger("Thomas Doe", new Date("2000/12/12"), "DSA12w3123");
@@ -72,7 +85,15 @@ public class Main {
         //creating a flight
         Flight flight1 = new Flight("1D",lot,airport1,airport2, Date.from(LocalDateTime.of(2024, Month.DECEMBER,20,12,0,0).atZone(ZoneId.systemDefault()).toInstant()));
 
-         airportController.addFlight(flight1);
+         airport1.addFlight(flight1);
+         airport1.addFlight(flight1);
+
+     System.out.println("list of flights:");
+
+
+         airport1.showAllFlights();
+
+     System.out.println("--------------");
 
 
 
@@ -81,31 +102,23 @@ public class Main {
         Ticket ticket2 = new Ticket("123xc",flight1,passenger2,"12F");
 
 
-        airportController.departFlight(flight1);
+
+     airport1.departFlight(flight1);
         flight1.arrive();
         flight1.complete();
 
-        airportController.showAllFlights();
-
-        airportController.addFlight(flight1);
-        airportController.exportFlightDetails("exported.txt");*/
-
-     Map <String,Integer> has  = new HashMap<String,Integer>();
-
-     has.put("airplane",3);
-     has.put("hotAirBalloon",1);
-
-     Hangar test = new Hangar("Main",has);
-
-     System.out.println(test.getAircraftSlots());
-
-        Aircraft airplane = new PassengerPlane(new Registration("N12345"), "Commercial Jet", "XXX", 2, 2000, 165, false);
-        Aircraft hotAirBalloon = new HotAirBalloon(new Registration("B78901"), "Tour Balloon","X",2, 8, 444, 1200, 150);
 
 
-        test.addAircraft(airplane);
+        airport1.exportFlightDetails("exported.txt");
 
 
-        System.out.println(Arrays.toString(Arrays.stream(test.getAircraftList().toArray()).toArray()));
+
+
+
+
+
+
+
+
     }
 }

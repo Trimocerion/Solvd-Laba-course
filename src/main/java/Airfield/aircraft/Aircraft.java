@@ -6,15 +6,9 @@ import Airfield.interfaces.Maintainable;
 import Airfield.interfaces.Refuelable;
 import Airfield.person.Employee;
 import Airfield.person.Passenger;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
 public abstract class Aircraft implements Flyable, Maintainable, Refuelable {
 
     private Registration registration;
@@ -98,5 +92,69 @@ public abstract class Aircraft implements Flyable, Maintainable, Refuelable {
         System.out.println(model + " is undergoing maintenance.");
     }
 
+
+    public Registration getRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(Registration registration) {
+        this.registration = registration;
+    }
+
+    public String getEngineType() {
+        return engineType;
+    }
+
+    public void setEngineType(String engineType) {
+        this.engineType = engineType;
+    }
+
+    public int getNumOfEngines() {
+        return numOfEngines;
+    }
+
+    public void setNumOfEngines(int numOfEngines) {
+        this.numOfEngines = numOfEngines;
+    }
+
+    public List<Employee> getCrewMembers() {
+        return crewMembers;
+    }
+
+    public void setCrewMembers(List<Employee> crewMembers) {
+        this.crewMembers = crewMembers;
+    }
+
+    public List<Passenger> getPassengerList() {
+        return passengerList;
+    }
+
+    public void setPassengerList(List<Passenger> passengerList) {
+        this.passengerList = passengerList;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String type) {
+        this.model = model;
+    }
+
+    public double getCurrentFuelLevel(){
+        return currentFuelLevel;
+    }
+
+    public void setCurrentFuelLevel(double currentFuelLevel){
+        this.currentFuelLevel = currentFuelLevel;
+    }
 
 }

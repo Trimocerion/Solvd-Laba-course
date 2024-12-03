@@ -5,9 +5,10 @@ public class Registration {
     private String code;
 
 
-    public Registration(){}
+    public Registration() {
+    }
 
-    public Registration(String code){
+    public Registration(String code) {
         this.code = code;
     }
 
@@ -20,7 +21,7 @@ public class Registration {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return code;
     }
 

@@ -7,9 +7,8 @@ public final class Helicopter extends Aircraft {
     private double rotorDiameter;
 
 
-
-
-    public Helicopter(){}
+    public Helicopter() {
+    }
 
 
     @Override
@@ -22,8 +21,8 @@ public final class Helicopter extends Aircraft {
         System.out.println(getModel() + " is landing.");
     }
 
-    public Helicopter(Registration registration, String model, int numOfSeats, String engineType, int numOfEngines, int maxFuelLevel, double rotorDiameter){
-        super( registration,  model,  engineType,  numOfEngines, maxFuelLevel);
+    public Helicopter(Registration registration, String model, String engineType, int numOfEngines, int maxFuelLevel, double rotorDiameter) {
+        super(registration, model, engineType, numOfEngines, maxFuelLevel);
         this.rotorDiameter = rotorDiameter;
         setType("helicopter");
     }

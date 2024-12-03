@@ -17,14 +17,15 @@ public final class PassengerPlane extends Aircraft implements PassengerHandler {
     private int maxPassengers;
 
 
-    public PassengerPlane(){}
+    public PassengerPlane() {
+    }
 
     @Override
     public void takeOff() {
         System.out.println(getModel() + " is taking off.");
     }
 
-    public PassengerPlane(Registration registration, String model, String engineType, int numOfEngines, int maxFuelLevel, int maxPassengers, boolean hasWifi){
+    public PassengerPlane(Registration registration, String model, String engineType, int numOfEngines, int maxFuelLevel, int maxPassengers, boolean hasWifi) {
         super(registration, model, engineType, numOfEngines, maxFuelLevel);
         this.maxPassengers = maxPassengers;
         this.hasWifi = hasWifi;
@@ -36,7 +37,6 @@ public final class PassengerPlane extends Aircraft implements PassengerHandler {
     public void fly() {
         System.out.println("Airplane flying");
     }
-
 
 
     @Override
@@ -74,19 +74,17 @@ public final class PassengerPlane extends Aircraft implements PassengerHandler {
     }
 
 
-
     @Override
     public void boardPassenger(Passenger passenger) {
 
-         List<Passenger> passengerListAircraft = getPassengerList();
+        List<Passenger> passengerListAircraft = getPassengerList();
 
-       if(passengerListAircraft.size() >= maxPassengers){
-           throw new PassengerExceededException("Exceeded the number of passengers");
-       }
-       else{
-           passengerListAircraft.add(passenger);
-           System.out.println("Passenger added");
-       }
+        if (passengerListAircraft.size() >= maxPassengers) {
+            throw new PassengerExceededException("Exceeded the number of passengers");
+        } else {
+            passengerListAircraft.add(passenger);
+            System.out.println("Passenger added");
+        }
     }
 
     @Override
@@ -94,10 +92,9 @@ public final class PassengerPlane extends Aircraft implements PassengerHandler {
 
         List<Passenger> passengerListAircraft = getPassengerList();
 
-        if(passengerList.size() >= maxPassengers) {
+        if (passengerList.size() >= maxPassengers) {
             throw new PassengerExceededException("Exceeded the number of passengers.");
-        }
-        else {
+        } else {
             passengerListAircraft.addAll(passengerList);
             System.out.println("Passenger list added");
         }
@@ -109,7 +106,7 @@ public final class PassengerPlane extends Aircraft implements PassengerHandler {
 
         List<Passenger> passengerListAircraft = getPassengerList();
 
-        if(passenger == null) throw new IllegalArgumentException("Passenger null");
+        if (passenger == null) throw new IllegalArgumentException("Passenger null");
 
         passengerListAircraft.remove(passenger);
         System.out.println("removed passenger from the airplane.");
@@ -120,12 +117,11 @@ public final class PassengerPlane extends Aircraft implements PassengerHandler {
     public void deboardPassengers() {
         List<Passenger> passengerListAircraft = getPassengerList();
 
-        if(!passengerListAircraft.isEmpty()){
+        if (!passengerListAircraft.isEmpty()) {
             passengerListAircraft.clear();
 
             System.out.println("All passengers deboarded.");
-        }
-        else{
+        } else {
             System.out.println("Passenger list is already empty.");
         }
 

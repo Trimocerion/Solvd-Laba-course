@@ -2,15 +2,15 @@ package Airfield.aircraft;
 
 import Airfield.interfaces.Refuelable;
 
-public final class HotAirBalloon extends  Aircraft {
+public final class HotAirBalloon extends Aircraft {
 
     private double envelopeVolume;
     private int burnerOutput;
     private double maxLiftCapacity;
 
 
-
-    public HotAirBalloon(){}
+    public HotAirBalloon() {
+    }
 
     @Override
     public void takeOff() {
@@ -24,7 +24,7 @@ public final class HotAirBalloon extends  Aircraft {
 
 
     public HotAirBalloon(Registration registration, String model, String engineType, int numOfEngines, int maxFuelLevel, double envelopeVolume, int burnerOutput, double maxLiftCapacity) {
-        super( registration,  model,  engineType,  numOfEngines, maxFuelLevel);
+        super(registration, model, engineType, numOfEngines, maxFuelLevel);
         this.envelopeVolume = envelopeVolume;
         this.burnerOutput = burnerOutput;
         this.maxLiftCapacity = maxLiftCapacity;
@@ -35,7 +35,6 @@ public final class HotAirBalloon extends  Aircraft {
     public void fly() {
         System.out.println("Hot air balloon flying...");
     }
-
 
 
     public int getBurnerOutput() {

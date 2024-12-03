@@ -8,6 +8,7 @@ import Airfield.flights.FlightStatus;
 import Airfield.flights.Luggage;
 import Airfield.person.Employee;
 import Airfield.person.Passenger;
+import Airfield.utilities.LoggerUtil;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -33,37 +35,32 @@ public class Airport {
     protected List<Runway> runways;
     protected ControlTower controlTower;
     protected FuelStation fuelStation;
-    private static final Logger logger = Logger.getLogger(Airport.class.getName());
+    private static final Logger logger = LoggerUtil.getLogger(Airport.class);
 
     static {
-
-        try {
-            FileHandler fileHandler = new FileHandler("airport_logs.log",true);
-            fileHandler.setFormatter(new SimpleFormatter());
-            logger.addHandler(fileHandler);
-        }
-        catch (Exception e){
-            System.err.println("Failed to setup: " + e.getMessage());
-        }
-
         totalAirports = 0;
         System.out.println("Static block executed");
     }
 
 
-    public Airport(){
+    public Airport() {
+
+        if (totalAirports >= MAX_AIRPORTS) {
+            throw new IllegalStateException("cannot create more than " + MAX_AIRPORTS + " airports.");
+        }
+
         totalAirports++;
     }
 
 
-    public Airport(String name, String location){
+    public Airport(String name, String location) {
 
-        if(totalAirports >= MAX_AIRPORTS){
+        if (totalAirports >= MAX_AIRPORTS) {
             throw new IllegalStateException("cannot create more than " + MAX_AIRPORTS + " airports.");
         }
 
         this.name = name;
-        this.location=location;
+        this.location = location;
         this.terminals = new ArrayList<>();
         this.employees = new ArrayList<>();
         this.flights = new ArrayList<>();
@@ -90,14 +87,11 @@ public class Airport {
             if (!flights.contains(flight)) {
                 flights.add(flight);
                 System.out.println("Flight " + flight.getFlightNumber() + " added to the schedule for " + flight.getOrigin().getName());
-            }
-            else {
+            } else {
                 throw new FlightOverbookedException("Flight " + flight.getFlightNumber() + " is already scheduled.");
             }
-        }
-        catch (FlightOverbookedException e){
+        } catch (FlightOverbookedException e) {
             logger.severe("Error adding flight: " + e.getMessage());
-            System.err.println(e.getMessage());
         }
 
     }
@@ -108,6 +102,9 @@ public class Airport {
         runways.add(runway);
     }
 
+    public void addHangar(Hangar hangar) {
+        hangars.add(hangar);
+    }
 
 
 
@@ -125,13 +122,11 @@ public class Airport {
                     throw new Exception("Flight " + flight.getFlightNumber() + " is not scheduled.");
                 }
 
-            }
-            else{
+            } else {
                 throw new Exception("No available runways for flight " + flight.getFlightNumber());
 
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.severe("Error during flight departure: " + e.getMessage());
             System.err.println(e.getMessage());
         }
@@ -148,9 +143,9 @@ public class Airport {
             }
         } catch (Exception e) {
             logger.warning("Error freeing runway: " + e.getMessage());
-            System.err.println(e.getMessage());
         }
     }
+
     public void checkInLuggage(Passenger passenger) {
         try {
             if (passenger == null || passenger.getLuggageList() == null) {
@@ -193,7 +188,7 @@ public class Airport {
     }
 
     public void delayFlight(Flight flight, int delayMinutes) throws FlightNotFoundException {
-        if(flight == null) throw new NullPointerException("Cannot delay flight. flight is null");
+        if (flight == null) throw new NullPointerException("Cannot delay flight. flight is null");
         if (flights.contains(flight)) {
             flight.delayFlight(delayMinutes);
             logger.info("Flight " + flight.getFlightNumber() + " delayed by " + delayMinutes + " minutes.");
@@ -203,14 +198,14 @@ public class Airport {
     }
 
     public void showAllFlights() {
-        if (flights.isEmpty()) {
-            logger.info("No flights available in the schedule.");
-        } else {
-            logger.info("Displaying all scheduled flights.");
+//        if (flights.isEmpty()) {
+//            logger.info("No flights available in the schedule.");
+//        } else {
+//            logger.info("Displaying all scheduled flights.");
             for (Flight flight : flights) {
                 System.out.println("Flight: " + flight.getFlightNumber() + " status: " + flight.getStatus());
             }
-        }
+//        }
     }
 
     public void exportFlightDetails(String filePath) {
@@ -230,11 +225,11 @@ public class Airport {
         }
     }
 
-    public static int getTotalAirports(){
+    public static int getTotalAirports() {
         return totalAirports;
     }
 
-    public static int getMaxAirports(){
+    public static int getMaxAirports() {
         return MAX_AIRPORTS;
     }
 

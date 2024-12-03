@@ -2,7 +2,7 @@ public class LinkedList<T> {
 
     Node<T> head;
 
-     static class Node<T>{
+      static class Node<T>{
          T data;
          Node<T> next;
 
@@ -35,5 +35,19 @@ public class LinkedList<T> {
              currNode = currNode.next;
          }
      }
+
+    public static void main(String[] args) {
+
+         LinkedList<String> list = new LinkedList<>();
+
+         list.insert("T1");
+         list.insert("T2");
+         list.insert("T3");
+
+         list.print();
+
+
+    }
+
 
 }
