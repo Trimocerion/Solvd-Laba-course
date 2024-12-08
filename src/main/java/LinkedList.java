@@ -6,22 +6,22 @@ public class LinkedList<T> {
 
         LinkedList<String> list = new LinkedList<>();
 
-        list.insert("T1");
-        list.insert("T2");
-        list.insert("T3");
+        list.add("T1");
+        list.add("T2");
+        list.add("T3");
         list.print();
         System.out.println("\n=============");
         list.remove("T1");
         list.print();
         System.out.println("\n=============");
-        list.insert(2,"T5");
+        list.add(2,"T5");
         list.print();
         System.out.println("\n=============");
-        list.insert(3,"TEST");
+        list.add(3,"TEST");
         list.print();
     }
 
-    public void insert(T data) {
+    public void add(T data) {
         Node<T> new_node = new Node<>(data);
 
         if (head == null) {
@@ -35,7 +35,7 @@ public class LinkedList<T> {
         }
     }
 
-    public void insert(int index, T data) {
+    public void add(int index, T data) {
         Node<T> new_node = new Node<>(data);
 
         if (index < 0) {

@@ -198,14 +198,14 @@ public class Airport {
     }
 
     public void showAllFlights() {
-//        if (flights.isEmpty()) {
-//            logger.info("No flights available in the schedule.");
-//        } else {
-//            logger.info("Displaying all scheduled flights.");
+        if (flights.isEmpty()) {
+            logger.info("No flights available in the schedule.");
+        } else {
+            logger.info("Displaying all scheduled flights.");
             for (Flight flight : flights) {
                 System.out.println("Flight: " + flight.getFlightNumber() + " status: " + flight.getStatus());
             }
-//        }
+        }
     }
 
     public void exportFlightDetails(String filePath) {

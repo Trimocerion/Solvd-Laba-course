@@ -86,9 +86,7 @@ public class Main {
         Flight flight1 = new Flight("1D",lot,airport1,airport2, Date.from(LocalDateTime.of(2024, Month.DECEMBER,20,12,0,0).atZone(ZoneId.systemDefault()).toInstant()));
 
          airport1.addFlight(flight1);
-         airport1.addFlight(flight1);
 
-     System.out.println("list of flights:");
 
 
          airport1.showAllFlights();
