@@ -18,7 +18,8 @@ public class FileReaderCount {
             throw new RuntimeException(e);
         }
     }
-    public static void countUniqueWords(String inputFile, String outputFile){
+
+    public static void countUniqueWords(String inputFile, String outputFile) {
         try {
 
             String inputFileContent = FileUtils.readFileToString(new File(inputFile));
@@ -32,7 +33,7 @@ public class FileReaderCount {
 
     public static void main(String[] args) {
         FileReaderCount.countOccurrence("repeated_words.txt", "happened");
-        FileReaderCount.countUniqueWords("repeated_words.txt","repeated_words_output.txt");
+        FileReaderCount.countUniqueWords("repeated_words.txt", "repeated_words_output.txt");
 
     }
 }

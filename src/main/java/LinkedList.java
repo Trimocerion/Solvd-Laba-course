@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public class LinkedList<T> {
 
     Node<T> head;
@@ -5,6 +7,10 @@ public class LinkedList<T> {
     public static void main(String[] args) {
 
         LinkedList<String> list = new LinkedList<>();
+
+        String toRemove = "TEST";
+
+        list.add("String");
 
         list.add("T1");
         list.add("T2");
@@ -19,6 +25,11 @@ public class LinkedList<T> {
         System.out.println("\n=============");
         list.add(3,"TEST");
         list.print();
+        list.remove(toRemove);
+        System.out.println("\n=============");
+        list.remove(0);
+        list.print();
+
     }
 
     public void add(T data) {
@@ -63,11 +74,10 @@ public class LinkedList<T> {
 
     }
 
-
     public void remove(T data) {
 
         if (head == null) {
-            return;
+            throw new NoSuchElementException("List is empty.");
         }
 
         if (head.data.equals(data)) {
@@ -84,11 +94,10 @@ public class LinkedList<T> {
         }
 
         if (currentNode == null) {
-            throw new IndexOutOfBoundsException("Index out of bounds.");
+            throw new NoSuchElementException("No element in the list.");
         }
+        assert prevNode != null;
         prevNode.next = currentNode.next;
-
-
     }
 
     public void remove(int index) {
