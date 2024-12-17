@@ -6,9 +6,9 @@ import airfield.flights.*;
 import airfield.person.Employee;
 import airfield.person.Passenger;
 import airfield.person.Role;
-import airfield.utilities.functions.Counter;
-import airfield.utilities.functions.Sorter;
-import airfield.utilities.functions.Transform;
+import airfield.utilities.functions.Processor;
+import airfield.utilities.functions.CompareFunction;
+import airfield.utilities.functions.TransformFunction;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -151,7 +151,7 @@ public class Main {
         //custom lambdas
 
         //1
-        Sorter<Airport> sorterByHangarAmount = (a1, a2) -> Integer.compare(a1.getHangars().size(), a2.getHangars().size());
+        CompareFunction<Airport> compareByHangarAmount = (a1, a2) -> Integer.compare(a1.getHangars().size(), a2.getHangars().size());
 
         System.out.println("not sorted airports");
         for (Airport airport : airports) {
@@ -159,21 +159,21 @@ public class Main {
         }
 
         System.out.println("Sorted airports:");
-        airports.sort(sorterByHangarAmount::compare);
+        airports.sort(compareByHangarAmount::compare);
 
         for (Airport airport : airports) {
             System.out.println(airport.getName());
         }
 
         //2
-        Transform<Airport, String> airportStringTransform = (a) -> a.getName() + "===" + a.getEmployees();
+        TransformFunction<Airport, String> airportStringTransformFunction = (a) -> a.getName() + "===" + a.getEmployees();
 
         for (Airport a : airports) {
-            System.out.println(airportStringTransform.run(a));
+            System.out.println(airportStringTransformFunction.run(a));
         }
 
         //3
-        Counter<Airport, Integer> countAllSecurity = (a) -> (int) a.getEmployees().stream().filter(e -> e.getRole() == Role.SECURITY).count();
+        Processor<Airport, Integer> countAllSecurity = (a) -> (int) a.getEmployees().stream().filter(e -> e.getRole() == Role.SECURITY).count();
 
         System.out.println("Security: " + countAllSecurity.run(airport1));
 
@@ -198,16 +198,20 @@ public class Main {
 
         Field[] fields = clazz.getDeclaredFields();
 
-        Stream.of(fields).forEach(field -> System.out.println(Modifier.toString(field.getModifiers()) + " " + field.getType() + " " + field.getName()));
+        Stream.of(fields).forEach(field -> System.out.print(Modifier.toString(field.getModifiers()) + " " + field.getType() + " " + field.getName() + " | "));
+        System.out.println();
+
 
         Constructor<?>[] constructors = clazz.getConstructors();
 
-        Stream.of(constructors).forEach(constructor -> System.out.println(constructor.getName() + " " + constructor.getParameterCount()));
+        Stream.of(constructors).forEach(constructor -> System.out.print(constructor.getName() + " " + constructor.getParameterCount() + " | "));
+        System.out.println();
+
 
         Method[] methods = clazz.getMethods();
 
 
-        Stream.of(methods).forEach(method -> System.out.println(method.getName() + " " + method.getReturnType() + " " + method.getParameterCount()));
+        Stream.of(methods).forEach(method -> System.out.print(method.getName() + " " + method.getReturnType() + " " + method.getParameterCount() + " | "));
 
         System.out.println();
 

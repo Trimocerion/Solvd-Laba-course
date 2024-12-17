@@ -1,6 +1,6 @@
 package airfield.utilities.functions;
 
 @FunctionalInterface
-public interface Transform<T, R>{
+public interface TransformFunction<T, R>{
     R run(T t);
 }
