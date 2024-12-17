@@ -49,7 +49,10 @@ public class ControlTower {
     }
 
 
-    public void assignRunway(Runway runway, Flight flight) throws RunwayNotAvailableException {
+    public void assignRunway(Runway runway, Flight flight, WeatherCondition weatherCondition) throws RunwayNotAvailableException {
+        if (!weatherCondition.isSafeForTakeoff()) {
+            throw new RuntimeException("Takeoff not allowed due to unsafe weather conditions.");
+        }
         if (runway != null && managedFlights.contains(flight)) {
             if (runway.getRunwayStatus() == RunwayStatus.AVAILABLE) {
                 runway.occupy();

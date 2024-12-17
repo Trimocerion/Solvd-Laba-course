@@ -14,17 +14,19 @@ public class Flight {
     private Airport destination;
     private Date departureTime;
     private FlightStatus status;
+    private FlightCategory category;
 
 
     public Flight(){}
 
-    public Flight(String flightNumber,Airline airline, Airport origin, Airport destination, Date departureTime){
+    public Flight(String flightNumber,Airline airline, Airport origin, Airport destination, Date departureTime, FlightCategory category){
         this.flightNumber = flightNumber;
         this.airline = airline;
         this.origin = origin;
         this.destination = destination;
         this.departureTime = departureTime;
         this.status=FlightStatus.SCHEDULED;
+        this.category = category;
     }
 
     public void assignAircraft(Aircraft aircraft){
@@ -120,5 +122,13 @@ public class Flight {
 
     public void setStatus(FlightStatus status) {
         this.status = status;
+    }
+
+    public FlightCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(FlightCategory category) {
+        this.category = category;
     }
 }

@@ -2,10 +2,7 @@ package airfield;
 
 import airfield.aircraft.*;
 import airfield.airport.*;
-import airfield.flights.Airline;
-import airfield.flights.Flight;
-import airfield.flights.FlightStatus;
-import airfield.flights.Ticket;
+import airfield.flights.*;
 import airfield.person.Employee;
 import airfield.person.Passenger;
 import airfield.person.Role;
@@ -13,6 +10,10 @@ import airfield.utilities.functions.Counter;
 import airfield.utilities.functions.Sorter;
 import airfield.utilities.functions.Transform;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
@@ -20,6 +21,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,7 +31,7 @@ public class Main {
         Airline wizzairAirline = new Airline("Wizzair", "wizz123");
 
         //Aircraft
-        Aircraft airplane = new PassengerPlane(new Registration("N12345"), "Commercial Jet", "XXX", 2, 2000, 165, false, AircraftType.COMMERCIAL);
+        Aircraft airplane = new PassengerPlane(new Registration("R12345"), "Commercial Jet", "XXX", 2, 2000, 165, false, AircraftType.COMMERCIAL);
         Aircraft airplane2 = new PassengerPlane(new Registration("N12345"), "Commercial Jet", "XXX", 2, 2137, 178, true, AircraftType.COMMERCIAL);
         Aircraft helicopter = new Helicopter(new Registration("H45678"), "Rescue Helicopter", "Jet", 1, 250, 15, AircraftType.CARGO);
         Aircraft hotAirBalloon = new HotAirBalloon(new Registration("B78901"), "Tour Balloon", "XX", 444, 1200, 150, 15, 111, AircraftType.COMMERCIAL);
@@ -81,12 +83,12 @@ public class Main {
         Passenger passenger1 = new Passenger("Thomas Doe", new Date("2000/12/12"), "DSA12w3123");
         Passenger passenger2 = new Passenger("Markus", new Date("2000/12/12"), "P123456789");
 
-        Employee employee1 = new Employee("123","Tom", Role.SECURITY);
-        Employee employee2 = new Employee("123","Tom", Role.SECURITY);
-        Employee employee3 = new Employee("123","Tom", Role.SECURITY);
+        Employee employee1 = new Employee("123", "Tom", Role.SECURITY);
+        Employee employee2 = new Employee("123", "Tom", Role.SECURITY);
+        Employee employee3 = new Employee("123", "Tom", Role.SECURITY);
 
-        airport1.setEmployees(List.of(employee1,employee2,employee3));
-        
+        airport1.setEmployees(List.of(employee1, employee2, employee3));
+
 
         //add luggage to passengers
         passenger1.addLuggage("LUG123", 20.4);
@@ -94,7 +96,13 @@ public class Main {
         passenger1.listLuggage();
 
         //creating a flight
-        Flight flight1 = new Flight("1D", lotAirline, airport1, airport2, Date.from(LocalDateTime.of(2024, Month.DECEMBER, 20, 12, 0, 0).atZone(ZoneId.systemDefault()).toInstant()));
+        Flight flight1 = new Flight("1D",
+                lotAirline,
+                airport1,
+                airport2,
+                Date.from(LocalDateTime.of(2024, Month.DECEMBER, 20, 12, 0, 0).atZone(ZoneId.systemDefault()).toInstant()),
+                FlightCategory.MEDIUM_HAUL
+        );
 
         flight1.setStatus(FlightStatus.CANCELED);
         airport1.addFlight(flight1);
@@ -120,9 +128,9 @@ public class Main {
         //2
         Function<Airport, String> getLocation = Airport::getLocation;
 
-        for (Airport airport : airports) {
-            System.out.println(getLocation.apply(airport));
-        }
+        System.out.println("Airport Locations:");
+        //only unique locations
+        airports.stream().map(getLocation).distinct().forEach(System.out::println);
 
         //3
         Consumer<Airport> printAirportEmployeesNum = airport -> System.out.println(airport.getName() + " has " + airport.getEmployees().size() + " employees.");
@@ -146,7 +154,7 @@ public class Main {
         Sorter<Airport> sorterByHangarAmount = (a1, a2) -> Integer.compare(a1.getHangars().size(), a2.getHangars().size());
 
         System.out.println("not sorted airports");
-        for (Airport airport : airports){
+        for (Airport airport : airports) {
             System.out.println(airport.getName());
         }
 
@@ -158,16 +166,67 @@ public class Main {
         }
 
         //2
-        Transform<Airport, String> airportStringTransform = (a) -> a.getName() + "===" +  a.getEmployees();
+        Transform<Airport, String> airportStringTransform = (a) -> a.getName() + "===" + a.getEmployees();
 
-        for (Airport a : airports){
+        for (Airport a : airports) {
             System.out.println(airportStringTransform.run(a));
         }
 
         //3
-        Counter<Airport, Integer> countAllSecurity = (a) -> (int) a.getEmployees().stream().filter(e -> e.getRole().equals(Role.SECURITY)).count();
+        Counter<Airport, Integer> countAllSecurity = (a) -> (int) a.getEmployees().stream().filter(e -> e.getRole() == Role.SECURITY).count();
 
         System.out.println("Security: " + countAllSecurity.run(airport1));
+
+
+        Stream<Airport> stream = airports.stream().filter(a -> a.getLocation().equals("Poland"));
+        Stream<Airport> stream2 = airports.stream().filter(a -> a.getName().contains("Test"));
+
+        System.out.println("Airports in Poland:");
+        stream.forEach(System.out::println);
+
+        System.out.println("Airports with 'Test' in name:");
+        stream2.forEach(System.out::println);
+
+
+        //Reflection
+
+        Class<?> clazz = airplane.getClass();
+
+        System.out.println("===\nReflection example:");
+        System.out.println(clazz.getName());
+        System.out.println(clazz.getSimpleName());
+
+        Field[] fields = clazz.getDeclaredFields();
+
+        Stream.of(fields).forEach(field -> System.out.println(Modifier.toString(field.getModifiers()) + " " + field.getType() + " " + field.getName()));
+
+        Constructor<?>[] constructors = clazz.getConstructors();
+
+        Stream.of(constructors).forEach(constructor -> System.out.println(constructor.getName() + " " + constructor.getParameterCount()));
+
+        Method[] methods = clazz.getMethods();
+
+
+        Stream.of(methods).forEach(method -> System.out.println(method.getName() + " " + method.getReturnType() + " " + method.getParameterCount()));
+
+        System.out.println();
+
+        try {
+            Object airplaneInstance = constructors[0].newInstance(new Registration("N12345"), "Commercial Jet", "XXX", 4, 2000, 165, false, AircraftType.COMMERCIAL);
+
+            System.out.println("Created instance of " + airplaneInstance.getClass().getSimpleName());
+            System.out.println(airplaneInstance);
+
+            airplaneInstance.getClass().getMethod("addPassenger", Passenger.class).invoke(airplaneInstance, passenger1);
+
+            airplaneInstance.getClass().getMethod("displayPassengers").invoke(airplaneInstance);
+
+            System.out.println(airplaneInstance);
+
+
+        } catch (Exception e) {
+            System.err.println("Failed to create object: " + e.getMessage());
+        }
 
 
         airport1.addFlight(flight1);

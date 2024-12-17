@@ -9,6 +9,4 @@ public enum WeatherCondition {
     public boolean isSafeForTakeoff(){
         return this != STORMY;
     }
-
-
 }

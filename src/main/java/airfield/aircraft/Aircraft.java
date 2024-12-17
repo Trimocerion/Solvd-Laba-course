@@ -93,6 +93,13 @@ public abstract class Aircraft implements Flyable, Maintainable, Refuelable {
         System.out.println(model + " is undergoing maintenance.");
     }
 
+    public double getMaxFuelLevel() {
+        return maxFuelLevel;
+    }
+
+    public void setMaxFuelLevel(double maxFuelLevel) {
+        this.maxFuelLevel = maxFuelLevel;
+    }
 
     public Registration getRegistration() {
         return registration;

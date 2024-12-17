@@ -71,13 +71,12 @@ public class Airport {
 
 
     public Runway getAvailableRunway() {
-        for (Runway runway : runways) {
-            if (runway.getRunwayStatus() == RunwayStatus.AVAILABLE) {
-                return runway;
-            }
-        }
-        return null;
+        return runways.stream()
+                .filter(runway -> runway.getRunwayStatus() == RunwayStatus.AVAILABLE)
+                .findFirst()
+                .orElse(null);
     }
+
 
     public void addFlight(Flight flight) {
         try {

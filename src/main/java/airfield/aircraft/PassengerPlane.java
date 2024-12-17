@@ -37,10 +37,17 @@ public final class PassengerPlane extends Aircraft implements PassengerHandler {
 
     @Override
     public String toString() {
-        return "Airplane{" +
-                "engineType='" + getEngineType() + '\'' +
+        return "PassengerPlane{" +
+                "model='" + getModel() + '\'' +
+                ", registration=" + getRegistration() +
+                ", type=" + getType() +
+                ", hasWifi=" + hasWifi +
+                ", maxPassengers=" + maxPassengers +
+                ", engineType='" + getEngineType() + '\'' +
                 ", numOfEngines=" + getNumOfEngines() +
                 ", currentFuelLevel=" + getCurrentFuelLevel() +
+                ", maxFuelLevel=" + getMaxFuelLevel() +
+                ", passengers=" + getPassengerList() +
                 '}';
     }
 
