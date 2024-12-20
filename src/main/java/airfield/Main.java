@@ -248,5 +248,22 @@ public class Main {
 
         airport1.departFlight(flight1);
         flight1.arrive();
+
+        Map <Integer, String> map = new HashMap<>();
+
+        map.put(1, "One");
+        map.put(2, "Two");
+        map.put(3, "Three");
+
+        map.forEach((k,v) -> System.out.println(k + " " + v));
+
+        System.out.println("--------------");
+
+        for(Map.Entry<Integer, String> entry : map.entrySet()){
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+
+
+
     }
 }

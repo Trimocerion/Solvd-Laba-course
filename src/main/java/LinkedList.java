@@ -1,6 +1,6 @@
 import java.util.NoSuchElementException;
 
-public class LinkedList<T> {
+public class LinkedList<T>{
 
     Node<T> head;
 
@@ -144,6 +144,4 @@ public class LinkedList<T> {
             this.next = null;
         }
     }
-
-
 }
