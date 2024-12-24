@@ -11,7 +11,7 @@ public class LoggerUtil {
 
     static {
         try {
-            FileHandler fileHandler = new FileHandler("airport_logs.log", true);
+            FileHandler fileHandler = new FileHandler("src/main/resources/airport_logs.log", true);
             fileHandler.setFormatter(new SimpleFormatter());
             rootLogger.addHandler(fileHandler);
 

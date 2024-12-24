@@ -21,6 +21,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
@@ -238,7 +239,7 @@ public class Main {
 
         System.out.println("--------------");
 
-        airport1.exportFlightDetails("exported.txt");
+        airport1.exportFlightDetails("src/main/resources/exported.txt");
 
 
         //issuing tickets for passengers
