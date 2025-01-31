@@ -1,8 +1,8 @@
-package supermarket.dao.impl;
+package supermarket.dao.mysql;
 
-import supermarket.dao.StoreDAO;
-import supermarket.model.Store;
-import supermarket.ConnectionPool;
+import supermarket.dao.IRolesDAO;
+import supermarket.model.Roles;
+import supermarket.util.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,26 +11,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StoreDAOImpl implements StoreDAO {
+public class RolesDAO implements IRolesDAO {
 
     private final ConnectionPool connectionPool;
 
-    public StoreDAOImpl(ConnectionPool connectionPool) {
+    public RolesDAO(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
     }
 
+
     @Override
-    public Store get(long id) {
-        String query = "SELECT * FROM stores WHERE store_id = ?";
+    public Roles get(long id) {
+        String query = "SELECT * FROM Roles WHERE role_id = ?";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return new Store(
-                        resultSet.getLong("store_id"),
-                        resultSet.getString("address"),
-                        resultSet.getString("postal_code")
+                return new Roles(
+                        resultSet.getLong("role_id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("description")
                 );
             }
         } catch (SQLException e) {
@@ -40,12 +41,12 @@ public class StoreDAOImpl implements StoreDAO {
     }
 
     @Override
-    public void save(Store store) {
-        String query = "INSERT INTO stores (address, postal_code) VALUES (?, ?)";
+    public void save(Roles role) {
+        String query = "INSERT INTO Roles (name, description) VALUES (?, ?)";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, store.getAddress());
-            statement.setString(2, store.getPostalCode());
+            statement.setString(1, role.getName());
+            statement.setString(2, role.getDescription());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,13 +54,13 @@ public class StoreDAOImpl implements StoreDAO {
     }
 
     @Override
-    public void update(Store store) {
-        String query = "UPDATE stores SET address = ?, postal_code = ? WHERE store_id = ?";
+    public void update(Roles role) {
+        String query = "UPDATE Roles SET name = ?, description = ? WHERE role_id = ?";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, store.getAddress());
-            statement.setString(2, store.getPostalCode());
-            statement.setLong(3, store.getStoreId());
+            statement.setString(1, role.getName());
+            statement.setString(2, role.getDescription());
+            statement.setLong(3, role.getRoleId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,11 +68,11 @@ public class StoreDAOImpl implements StoreDAO {
     }
 
     @Override
-    public void delete(Store store) {
-        String query = "DELETE FROM stores WHERE store_id = ?";
+    public void delete(Roles role) {
+        String query = "DELETE FROM Roles WHERE role_id = ?";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, store.getStoreId());
+            statement.setLong(1, role.getRoleId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -79,22 +80,22 @@ public class StoreDAOImpl implements StoreDAO {
     }
 
     @Override
-    public List<Store> getAll() {
-        List<Store> stores = new ArrayList<>();
-        String query = "SELECT * FROM stores";
+    public List<Roles> getAll() {
+        List<Roles> roles = new ArrayList<>();
+        String query = "SELECT * FROM Roles";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                stores.add(new Store(
-                        resultSet.getLong("store_id"),
-                        resultSet.getString("address"),
-                        resultSet.getString("postal_code")
+                roles.add(new Roles(
+                        resultSet.getLong("role_id"),
+                        resultSet.getString("role_name"),
+                        resultSet.getString("description")
                 ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return stores;
+        return roles;
     }
 }

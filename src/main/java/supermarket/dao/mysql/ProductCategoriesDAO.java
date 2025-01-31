@@ -1,8 +1,8 @@
-package supermarket.dao.impl;
+package supermarket.dao.mysql;
 
-import supermarket.dao.RolesDAO;
-import supermarket.model.Roles;
-import supermarket.ConnectionPool;
+import supermarket.dao.IProductCategoriesDAO;
+import supermarket.model.ProductCategories;
+import supermarket.util.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,25 +11,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RolesDAOImpl implements RolesDAO {
+public class ProductCategoriesDAO implements IProductCategoriesDAO {
 
     private final ConnectionPool connectionPool;
 
-    public RolesDAOImpl(ConnectionPool connectionPool) {
+    public ProductCategoriesDAO(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
     }
 
 
     @Override
-    public Roles get(long id) {
-        String query = "SELECT * FROM Roles WHERE role_id = ?";
+    public ProductCategories get(long id) {
+        String query = "SELECT * FROM product_category WHERE category_id = ?";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return new Roles(
-                        resultSet.getLong("role_id"),
+                return new ProductCategories(
+                        resultSet.getLong("category_id"),
                         resultSet.getString("name"),
                         resultSet.getString("description")
                 );
@@ -41,12 +41,11 @@ public class RolesDAOImpl implements RolesDAO {
     }
 
     @Override
-    public void save(Roles role) {
-        String query = "INSERT INTO Roles (name, description) VALUES (?, ?)";
+    public void save(ProductCategories productCategory) {
+        String query = "INSERT INTO product_category (name) VALUES (?)";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, role.getName());
-            statement.setString(2, role.getDescription());
+            statement.setString(1, productCategory.getName());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,13 +53,12 @@ public class RolesDAOImpl implements RolesDAO {
     }
 
     @Override
-    public void update(Roles role) {
-        String query = "UPDATE Roles SET name = ?, description = ? WHERE role_id = ?";
+    public void update(ProductCategories productCategory) {
+        String query = "UPDATE product_category SET name = ? WHERE category_id = ?";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, role.getName());
-            statement.setString(2, role.getDescription());
-            statement.setLong(3, role.getRoleId());
+            statement.setString(1, productCategory.getName());
+            statement.setLong(2, productCategory.getCategoryId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,11 +66,11 @@ public class RolesDAOImpl implements RolesDAO {
     }
 
     @Override
-    public void delete(Roles role) {
-        String query = "DELETE FROM Roles WHERE role_id = ?";
+    public void delete(ProductCategories productCategory) {
+        String query = "DELETE FROM product_category WHERE category_id = ?";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, role.getRoleId());
+            statement.setLong(1, productCategory.getCategoryId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,22 +78,22 @@ public class RolesDAOImpl implements RolesDAO {
     }
 
     @Override
-    public List<Roles> getAll() {
-        List<Roles> roles = new ArrayList<>();
-        String query = "SELECT * FROM Roles";
+    public List<ProductCategories> getAll() {
+        List<ProductCategories> productCategories = new ArrayList<>();
+        String query = "SELECT * FROM product_category";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                roles.add(new Roles(
-                        resultSet.getLong("role_id"),
-                        resultSet.getString("role_name"),
+                productCategories.add(new ProductCategories(
+                        resultSet.getLong("category_id"),
+                        resultSet.getString("name"),
                         resultSet.getString("description")
                 ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return roles;
+        return productCategories;
     }
 }

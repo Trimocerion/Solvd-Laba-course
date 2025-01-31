@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<supermarket>
+    <store id="1" name="SuperMart" location="Downtown">
+        <checkout id="101" is_active="true"/>
+        <checkout id="102" is_active="false"/>
+    </store>
+    <store id="2" address="Polando" postal_code="123">
+        <checkout id="201" is_active="true"/>
+    </store>
+    <products>
+        <product id="5001" name="Apple" price="0.99"/>
+        <product id="5002" name="Milk" price="2.49"/>
+    </products>
+    <customers>
+        <customer id="9001" first_name="John" last_name="Doe" email="johndoe@email.com"/>
+        <customer id="9002" first_name="Jane" last_name="Smith" email="janesmith@email.com"/>
+    </customers>
+    <users>
+        <user id="10001" username="johndoe" email="johndoe@gmail.com" password="password"/>
+        <user id="10002" username="janesmith" email="janesmith@gmail.com" password="password"/>
+    </users>
+</supermarket>

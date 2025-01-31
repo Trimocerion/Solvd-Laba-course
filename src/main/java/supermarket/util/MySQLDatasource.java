@@ -1,10 +1,10 @@
-package supermarket;
+package supermarket.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class MySQLDatasource implements IDatasource{
+public class MySQLDatasource implements IDatasource {
     private String url;
     private String user;
     private String password;

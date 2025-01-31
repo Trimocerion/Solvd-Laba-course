@@ -1,8 +1,8 @@
-package supermarket.dao.impl;
+package supermarket.dao.mysql;
 
-import supermarket.dao.SuppliersDAO;
+import supermarket.dao.ISuppliersDAO;
 import supermarket.model.Suppliers;
-import supermarket.ConnectionPool;
+import supermarket.util.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,11 +11,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SuppliersDAOImpl implements SuppliersDAO {
+public class SuppliersDAO implements ISuppliersDAO {
 
     private final ConnectionPool connectionPool;
 
-    public SuppliersDAOImpl(ConnectionPool connectionPool) {
+    public SuppliersDAO(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
     }
 

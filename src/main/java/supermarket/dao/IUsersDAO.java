@@ -2,5 +2,5 @@ package supermarket.dao;
 
 import supermarket.model.Users;
 
-public interface UsersDAO extends DAO<Users> {
+public interface IUsersDAO extends IDAO<Users> {
 }

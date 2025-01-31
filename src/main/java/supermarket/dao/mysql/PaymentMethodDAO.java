@@ -1,8 +1,8 @@
-package supermarket.dao.impl;
+package supermarket.dao.mysql;
 
-import supermarket.dao.CheckoutDAO;
-import supermarket.model.Checkout;
-import supermarket.ConnectionPool;
+import supermarket.dao.IPaymentMethodDAO;
+import supermarket.model.PaymentMethod;
+import supermarket.util.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,26 +11,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CheckoutDAOImpl implements CheckoutDAO {
+public class PaymentMethodDAO implements IPaymentMethodDAO {
 
     private final ConnectionPool connectionPool;
 
-    public CheckoutDAOImpl(ConnectionPool connectionPool) {
+    public PaymentMethodDAO(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
     }
 
-        @Override
-    public Checkout get(long id) {
-        String query = "SELECT * FROM checkout WHERE checkout_id = ?";
+
+    @Override
+    public PaymentMethod get(long id) {
+        String query = "SELECT * FROM payment_method WHERE payment_id = ?";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return new Checkout(
-                        resultSet.getLong("checkout_id"),
-                        resultSet.getLong("store_id"),
-                        resultSet.getBoolean("is_active")
+                return new PaymentMethod(
+                        resultSet.getLong("payment_id"),
+                        resultSet.getString("name")
                 );
             }
         } catch (SQLException e) {
@@ -40,12 +40,11 @@ public class CheckoutDAOImpl implements CheckoutDAO {
     }
 
     @Override
-    public void save(Checkout checkout) {
-        String query = "INSERT INTO checkout (store_id, is_active) VALUES (?, ?)";
+    public void save(PaymentMethod paymentMethod) {
+        String query = "INSERT INTO payment_method (name) VALUES (?)";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, checkout.getStoreId());
-            statement.setBoolean(2, checkout.isActive());
+            statement.setString(1, paymentMethod.getName());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,13 +52,12 @@ public class CheckoutDAOImpl implements CheckoutDAO {
     }
 
     @Override
-    public void update(Checkout checkout) {
-        String query = "UPDATE checkout SET store_id = ?, is_active = ? WHERE checkout_id = ?";
+    public void update(PaymentMethod paymentMethod) {
+        String query = "UPDATE payment_method SET name = ? WHERE payment_id = ?";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, checkout.getStoreId());
-            statement.setBoolean(2, checkout.isActive());
-            statement.setLong(3, checkout.getCheckoutId());
+            statement.setString(1, paymentMethod.getName());
+            statement.setLong(2, paymentMethod.getPaymentId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,11 +65,11 @@ public class CheckoutDAOImpl implements CheckoutDAO {
     }
 
     @Override
-    public void delete(Checkout checkout) {
-        String query = "DELETE FROM checkout WHERE checkout_id = ?";
+    public void delete(PaymentMethod paymentMethod) {
+        String query = "DELETE FROM payment_method WHERE payment_id = ?";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, checkout.getCheckoutId());
+            statement.setLong(1, paymentMethod.getPaymentId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -79,22 +77,21 @@ public class CheckoutDAOImpl implements CheckoutDAO {
     }
 
     @Override
-    public List<Checkout> getAll() {
-        List<Checkout> checkouts = new ArrayList<>();
-        String query = "SELECT * FROM checkout";
+    public List<PaymentMethod> getAll() {
+        List<PaymentMethod> paymentMethods = new ArrayList<>();
+        String query = "SELECT * FROM payment_method";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                checkouts.add(new Checkout(
-                        resultSet.getLong("checkout_id"),
-                        resultSet.getLong("store_id"),
-                        resultSet.getBoolean("is_active")
+                paymentMethods.add(new PaymentMethod(
+                        resultSet.getLong("payment_id"),
+                        resultSet.getString("name")
                 ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return checkouts;
+        return paymentMethods;
     }
 }

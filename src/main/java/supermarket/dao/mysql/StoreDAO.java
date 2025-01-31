@@ -1,8 +1,8 @@
-package supermarket.dao.impl;
+package supermarket.dao.mysql;
 
-import supermarket.dao.ProductCategoriesDAO;
-import supermarket.model.ProductCategories;
-import supermarket.ConnectionPool;
+import supermarket.dao.IStoreDAO;
+import supermarket.model.Store;
+import supermarket.util.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,27 +11,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductCategoriesDAOImpl implements ProductCategoriesDAO {
+public class StoreDAO implements IStoreDAO {
 
     private final ConnectionPool connectionPool;
 
-    public ProductCategoriesDAOImpl(ConnectionPool connectionPool) {
+    public StoreDAO(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
     }
 
-
     @Override
-    public ProductCategories get(long id) {
-        String query = "SELECT * FROM product_category WHERE category_id = ?";
+    public Store get(long id) {
+        String query = "SELECT * FROM stores WHERE store_id = ?";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return new ProductCategories(
-                        resultSet.getLong("category_id"),
-                        resultSet.getString("name"),
-                        resultSet.getString("description")
+                return new Store(
+                        resultSet.getLong("store_id"),
+                        resultSet.getString("address"),
+                        resultSet.getString("postal_code")
                 );
             }
         } catch (SQLException e) {
@@ -41,11 +40,12 @@ public class ProductCategoriesDAOImpl implements ProductCategoriesDAO {
     }
 
     @Override
-    public void save(ProductCategories productCategory) {
-        String query = "INSERT INTO product_category (name) VALUES (?)";
+    public void save(Store store) {
+        String query = "INSERT INTO stores (address, postal_code) VALUES (?, ?)";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, productCategory.getName());
+            statement.setString(1, store.getAddress());
+            statement.setString(2, store.getPostalCode());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,12 +53,13 @@ public class ProductCategoriesDAOImpl implements ProductCategoriesDAO {
     }
 
     @Override
-    public void update(ProductCategories productCategory) {
-        String query = "UPDATE product_category SET name = ? WHERE category_id = ?";
+    public void update(Store store) {
+        String query = "UPDATE stores SET address = ?, postal_code = ? WHERE store_id = ?";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, productCategory.getName());
-            statement.setLong(2, productCategory.getCategoryId());
+            statement.setString(1, store.getAddress());
+            statement.setString(2, store.getPostalCode());
+            statement.setLong(3, store.getStoreId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,11 +67,11 @@ public class ProductCategoriesDAOImpl implements ProductCategoriesDAO {
     }
 
     @Override
-    public void delete(ProductCategories productCategory) {
-        String query = "DELETE FROM product_category WHERE category_id = ?";
+    public void delete(Store store) {
+        String query = "DELETE FROM stores WHERE store_id = ?";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, productCategory.getCategoryId());
+            statement.setLong(1, store.getStoreId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,22 +79,22 @@ public class ProductCategoriesDAOImpl implements ProductCategoriesDAO {
     }
 
     @Override
-    public List<ProductCategories> getAll() {
-        List<ProductCategories> productCategories = new ArrayList<>();
-        String query = "SELECT * FROM product_category";
+    public List<Store> getAll() {
+        List<Store> stores = new ArrayList<>();
+        String query = "SELECT * FROM stores";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                productCategories.add(new ProductCategories(
-                        resultSet.getLong("category_id"),
-                        resultSet.getString("name"),
-                        resultSet.getString("description")
+                stores.add(new Store(
+                        resultSet.getLong("store_id"),
+                        resultSet.getString("address"),
+                        resultSet.getString("postal_code")
                 ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return productCategories;
+        return stores;
     }
 }

@@ -1,8 +1,11 @@
 package supermarket;
 
-import supermarket.dao.CheckoutDAO;
-import supermarket.dao.impl.CheckoutDAOImpl;
+import supermarket.dao.ICheckoutDAO;
+import supermarket.dao.mysql.CheckoutDAO;
 import supermarket.model.Checkout;
+import supermarket.util.ConnectionPool;
+import supermarket.util.IDatasource;
+import supermarket.util.MySQLDatasource;
 
 import java.sql.SQLException;
 
@@ -14,9 +17,9 @@ public class Main {
 
             ConnectionPool connectionPool = new ConnectionPool(datasource);
 
-            CheckoutDAO checkoutDAO = new CheckoutDAOImpl(connectionPool);
+            ICheckoutDAO ICheckoutDAO = new CheckoutDAO(connectionPool);
 
-            Checkout checkout = checkoutDAO.get(1);
+            Checkout checkout = ICheckoutDAO.get(1);
             System.out.println(checkout);
 
 
