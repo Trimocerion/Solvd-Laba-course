@@ -19,4 +19,5 @@ public class MySQLDatasource implements IDatasource {
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, user, password);
     }
+
 }

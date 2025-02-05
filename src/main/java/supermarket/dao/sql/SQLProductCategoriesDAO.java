@@ -1,4 +1,4 @@
-package supermarket.dao.mysql;
+package supermarket.dao.sql;
 
 import supermarket.dao.IProductCategoriesDAO;
 import supermarket.model.ProductCategories;
@@ -11,19 +11,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductCategoriesDAO implements IProductCategoriesDAO {
+public class SQLProductCategoriesDAO extends SQLAbstractDAO implements IProductCategoriesDAO {
 
-    private final ConnectionPool connectionPool;
-
-    public ProductCategoriesDAO(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
+    public SQLProductCategoriesDAO(ConnectionPool connectionPool) {
+        super(connectionPool);
     }
-
 
     @Override
     public ProductCategories get(long id) {
         String query = "SELECT * FROM product_category WHERE category_id = ?";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -41,21 +38,29 @@ public class ProductCategoriesDAO implements IProductCategoriesDAO {
     }
 
     @Override
-    public void save(ProductCategories productCategory) {
+    public long save(ProductCategories productCategory) {
         String query = "INSERT INTO product_category (name) VALUES (?)";
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = getConnectionPool().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, productCategory.getName());
             statement.executeUpdate();
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getLong(1);
+                } else {
+                    throw new SQLException("Creating product category failed, no ID obtained.");
+                }
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     public void update(ProductCategories productCategory) {
         String query = "UPDATE product_category SET name = ? WHERE category_id = ?";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, productCategory.getName());
             statement.setLong(2, productCategory.getCategoryId());
@@ -68,7 +73,7 @@ public class ProductCategoriesDAO implements IProductCategoriesDAO {
     @Override
     public void delete(ProductCategories productCategory) {
         String query = "DELETE FROM product_category WHERE category_id = ?";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, productCategory.getCategoryId());
             statement.executeUpdate();
@@ -81,7 +86,7 @@ public class ProductCategoriesDAO implements IProductCategoriesDAO {
     public List<ProductCategories> getAll() {
         List<ProductCategories> productCategories = new ArrayList<>();
         String query = "SELECT * FROM product_category";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {

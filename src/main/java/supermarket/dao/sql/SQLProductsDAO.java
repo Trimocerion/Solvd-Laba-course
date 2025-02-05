@@ -1,4 +1,4 @@
-package supermarket.dao.mysql;
+package supermarket.dao.sql;
 
 import supermarket.dao.IProductsDAO;
 import supermarket.model.Products;
@@ -11,18 +11,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductsDAO implements IProductsDAO {
+public class SQLProductsDAO extends SQLAbstractDAO implements IProductsDAO {
 
-    private final ConnectionPool connectionPool;
-
-    public ProductsDAO(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
+    public SQLProductsDAO(ConnectionPool connectionPool) {
+        super(connectionPool);
     }
 
     @Override
     public Products get(long id) {
         String query = "SELECT * FROM products WHERE product_id = ?";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -42,24 +40,32 @@ public class ProductsDAO implements IProductsDAO {
     }
 
     @Override
-    public void save(Products product) {
+    public long save(Products product) {
         String query = "INSERT INTO products (name, description, price, category_id) VALUES (?, ?, ?, ?)";
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = getConnectionPool().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, product.getName());
             statement.setString(2, product.getDescription());
             statement.setDouble(3, product.getPrice());
             statement.setLong(4, product.getCategoryId());
             statement.executeUpdate();
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getLong(1);
+                } else {
+                    throw new SQLException("Creating product failed, no ID obtained.");
+                }
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     public void update(Products product) {
         String query = "UPDATE products SET name = ?, description = ?, price = ?, category_id = ? WHERE product_id = ?";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, product.getName());
             statement.setString(2, product.getDescription());
@@ -75,7 +81,7 @@ public class ProductsDAO implements IProductsDAO {
     @Override
     public void delete(Products product) {
         String query = "DELETE FROM products WHERE product_id = ?";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, product.getProductId());
             statement.executeUpdate();
@@ -88,7 +94,7 @@ public class ProductsDAO implements IProductsDAO {
     public List<Products> getAll() {
         List<Products> products = new ArrayList<>();
         String query = "SELECT * FROM products";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {

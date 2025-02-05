@@ -3,16 +3,19 @@ package supermarket.util;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ConnectionPool {
     private static final int INITIAL_POOL_SIZE = 10;
     private final IDatasource datasource;
-    private final List<Connection> connectionPool = new ArrayList<>();
-    private final List<Connection> usedConnections = new ArrayList<>();
+    private final List<Connection> connectionPool;
+    private final List<Connection> usedConnections;
 
     public ConnectionPool(IDatasource datasource) throws SQLException {
         this.datasource = datasource;
+        this.connectionPool = Collections.synchronizedList(new ArrayList<>());
+        this.usedConnections = Collections.synchronizedList(new ArrayList<>());
         initializePool();
     }
 
@@ -23,23 +26,28 @@ public class ConnectionPool {
     }
 
     public Connection getConnection() throws SQLException {
-        if (connectionPool.isEmpty()) {
-            throw new RuntimeException("All connections are in use!");
+        synchronized (connectionPool) {
+            if (connectionPool.isEmpty()) {
+                throw new RuntimeException("All connections are in use!");
+            }
+            Connection connection = connectionPool.remove(connectionPool.size() - 1);
+            usedConnections.add(connection);
+            return connection;
         }
-        Connection connection = connectionPool.remove(connectionPool.size() - 1);
-        usedConnections.add(connection);
-        return connection;
     }
 
-    public boolean releaseConnection(Connection connection) {
+    public void releaseConnection(Connection connection) {
         if (connection != null) {
-            connectionPool.add(connection);
-            return usedConnections.remove(connection);
+            synchronized (connectionPool) {
+                connectionPool.add(connection);
+                usedConnections.remove(connection);
+            }
         }
-        return false;
     }
 
     public int getAvailableConnections() {
-        return connectionPool.size();
+        synchronized (connectionPool) {
+            return connectionPool.size();
+        }
     }
 }

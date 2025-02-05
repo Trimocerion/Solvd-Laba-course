@@ -1,4 +1,4 @@
-package supermarket.dao.mysql;
+package supermarket.dao.sql;
 
 import supermarket.dao.ISuppliersDAO;
 import supermarket.model.Suppliers;
@@ -11,18 +11,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SuppliersDAO implements ISuppliersDAO {
+public class SQLSuppliersDAO extends SQLAbstractDAO implements ISuppliersDAO {
 
-    private final ConnectionPool connectionPool;
-
-    public SuppliersDAO(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
+    public SQLSuppliersDAO(ConnectionPool connectionPool) {
+        super(connectionPool);
     }
 
     @Override
     public Suppliers get(long id) {
         String query = "SELECT * FROM suppliers WHERE supplier_id = ?";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -42,24 +40,33 @@ public class SuppliersDAO implements ISuppliersDAO {
     }
 
     @Override
-    public void save(Suppliers supplier) {
+    public long save(Suppliers supplier) {
         String query = "INSERT INTO suppliers (name, contact_number, email, address) VALUES (?, ?, ?, ?)";
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = getConnectionPool().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, supplier.getName());
             statement.setString(2, supplier.getContactNumber());
             statement.setString(3, supplier.getEmail());
             statement.setString(4, supplier.getAddress());
             statement.executeUpdate();
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getLong(1);
+                } else {
+                    throw new SQLException("Creating supplier failed, no ID obtained.");
+                }
+            }
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     public void update(Suppliers supplier) {
         String query = "UPDATE suppliers SET name = ?, contact_number = ?, email = ?, address = ? WHERE supplier_id = ?";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, supplier.getName());
             statement.setString(2, supplier.getContactNumber());
@@ -75,7 +82,7 @@ public class SuppliersDAO implements ISuppliersDAO {
     @Override
     public void delete(Suppliers supplier) {
         String query = "DELETE FROM suppliers WHERE supplier_id = ?";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, supplier.getSupplierId());
             statement.executeUpdate();
@@ -88,7 +95,7 @@ public class SuppliersDAO implements ISuppliersDAO {
     public List<Suppliers> getAll() {
         List<Suppliers> suppliers = new ArrayList<>();
         String query = "SELECT * FROM suppliers";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {

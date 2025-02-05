@@ -1,4 +1,4 @@
-package supermarket.dao.mysql;
+package supermarket.dao.sql;
 
 import supermarket.dao.IUsersDAO;
 import supermarket.model.Users;
@@ -11,18 +11,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsersDAO implements IUsersDAO {
+public class SQLUsersDAO extends SQLAbstractDAO implements IUsersDAO {
 
-    private final ConnectionPool connectionPool;
-
-    public UsersDAO(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
+    public SQLUsersDAO(ConnectionPool connectionPool) {
+        super(connectionPool);
     }
 
     @Override
     public Users get(long id) {
         String query = "SELECT * FROM users WHERE user_id = ?";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -44,10 +42,10 @@ public class UsersDAO implements IUsersDAO {
     }
 
     @Override
-    public void save(Users user) {
+    public long save(Users user) {
         String query = "INSERT INTO users (username, email, password, role_id, store_id, created_at) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = getConnectionPool().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getPassword());
@@ -55,15 +53,23 @@ public class UsersDAO implements IUsersDAO {
             statement.setLong(5, user.getStoreId());
             statement.setTime(6, user.getCreatedAt());
             statement.executeUpdate();
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getLong(1);
+                } else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     public void update(Users user) {
         String query = "UPDATE users SET username = ?, email = ?, password = ?, role_id = ?, store_id = ?, created_at = ? WHERE user_id = ?";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getEmail());
@@ -81,7 +87,7 @@ public class UsersDAO implements IUsersDAO {
     @Override
     public void delete(Users user) {
         String query = "DELETE FROM users WHERE user_id = ?";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, user.getUserId());
             statement.executeUpdate();
@@ -94,7 +100,7 @@ public class UsersDAO implements IUsersDAO {
     public List<Users> getAll() {
         List<Users> users = new ArrayList<>();
         String query = "SELECT * FROM users";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {

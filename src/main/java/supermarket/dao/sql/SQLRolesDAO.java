@@ -1,4 +1,4 @@
-package supermarket.dao.mysql;
+package supermarket.dao.sql;
 
 import supermarket.dao.IRolesDAO;
 import supermarket.model.Roles;
@@ -11,19 +11,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RolesDAO implements IRolesDAO {
+public class SQLRolesDAO extends SQLAbstractDAO implements IRolesDAO {
 
-    private final ConnectionPool connectionPool;
-
-    public RolesDAO(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
+    public SQLRolesDAO(ConnectionPool connectionPool) {
+        super(connectionPool);
     }
-
 
     @Override
     public Roles get(long id) {
         String query = "SELECT * FROM Roles WHERE role_id = ?";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -41,22 +38,30 @@ public class RolesDAO implements IRolesDAO {
     }
 
     @Override
-    public void save(Roles role) {
+    public long save(Roles role) {
         String query = "INSERT INTO Roles (name, description) VALUES (?, ?)";
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = getConnectionPool().getConnection();
+             PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, role.getName());
             statement.setString(2, role.getDescription());
             statement.executeUpdate();
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getLong(1);
+                } else {
+                    throw new SQLException("Creating role failed, no ID obtained.");
+                }
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     public void update(Roles role) {
         String query = "UPDATE Roles SET name = ?, description = ? WHERE role_id = ?";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, role.getName());
             statement.setString(2, role.getDescription());
@@ -70,7 +75,7 @@ public class RolesDAO implements IRolesDAO {
     @Override
     public void delete(Roles role) {
         String query = "DELETE FROM Roles WHERE role_id = ?";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, role.getRoleId());
             statement.executeUpdate();
@@ -83,7 +88,7 @@ public class RolesDAO implements IRolesDAO {
     public List<Roles> getAll() {
         List<Roles> roles = new ArrayList<>();
         String query = "SELECT * FROM Roles";
-        try (Connection connection = connectionPool.getConnection();
+        try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
