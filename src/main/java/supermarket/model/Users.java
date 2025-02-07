@@ -1,15 +1,39 @@
 package supermarket.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
 import java.sql.Time;
 
+@XmlRootElement(name = "users")
+@XmlAccessorType(XmlAccessType.FIELD)
+@JsonPropertyOrder({"user_id", "username", "email", "password", "role_id", "store_id", "created_at"})
 public class Users {
 
+    @XmlElement(name = "user_id")
+    @JsonProperty("user_id")
     private long userId;
+    @XmlElement(name = "username")
+    @JsonProperty("username")
     private String username;
+    @XmlElement(name = "email")
+    @JsonProperty("email")
     private String email;
+    @XmlElement(name = "password")
+    @JsonProperty("password")
     private String password;
+    @XmlElement(name = "role_id")
+    @JsonProperty("role_id")
     private long roleId;
+    @XmlElement(name = "store_id")
+    @JsonProperty("store_id")
     private long storeId;
+    @XmlElement(name = "created_at")
+    @JsonProperty("created_at")
     private Time createdAt;
 
 

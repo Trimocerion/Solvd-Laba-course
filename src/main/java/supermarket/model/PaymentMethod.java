@@ -1,7 +1,21 @@
 package supermarket.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "payment_method")
+@XmlAccessorType(XmlAccessType.FIELD)
+@JsonPropertyOrder({"payment_id", "name"})
 public class PaymentMethod {
+    @XmlElement(name = "payment_id")
+    @JsonProperty("payment_id")
     private long paymentId;
+    @XmlElement(name = "name")
+    @JsonProperty("name")
     private String name;
 
     public PaymentMethod() {

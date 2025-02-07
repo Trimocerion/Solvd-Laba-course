@@ -19,7 +19,7 @@ public class SQLCheckoutDAO extends SQLAbstractDAO implements ICheckoutDAO {
     }
 
     @Override
-    public Checkout get(long id) throws SQLException {
+    public Checkout get(long id) {
         String query = "SELECT * FROM checkout WHERE checkout_id = ?";
         Connection connection = null;
         try{

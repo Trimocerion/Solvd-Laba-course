@@ -1,8 +1,24 @@
 package supermarket.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "product_categories")
+@XmlAccessorType(XmlAccessType.FIELD)
+@JsonPropertyOrder({"categoryId", "name", "description"})
 public class ProductCategories {
+    @XmlElement(name = "category_id")
+    @JsonProperty("category_id")
     private long categoryId;
+    @XmlElement(name = "name")
+    @JsonProperty("name")
     private String name;
+    @XmlElement(name = "description")
+    @JsonProperty("description")
     private String description;
 
     public ProductCategories() {

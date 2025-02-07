@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <supermarket>
-    <store id="1" name="SuperMart" location="Downtown">
-        <checkout id="101" is_active="true"/>
-        <checkout id="102" is_active="false"/>
-    </store>
-    <store id="2" address="Polando" postal_code="123">
-        <checkout id="201" is_active="true"/>
-    </store>
+    <stores>
+        <store id="1" address="123 Main St" postal_code="12345">
+            <checkouts>
+                <checkout id="101" is_active="true"/>
+                <checkout id="102" is_active="false"/>
+            </checkouts>
+        </store>
+        <store id="2" address="456 Elm St" postal_code="67890">
+            <checkouts>
+                <checkout id="201" is_active="true"/>
+            </checkouts>
+        </store>
+    </stores>
     <products>
         <product id="5001" name="Apple" price="0.99"/>
         <product id="5002" name="Milk" price="2.49"/>
