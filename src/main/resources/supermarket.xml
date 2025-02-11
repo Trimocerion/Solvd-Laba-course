@@ -22,7 +22,7 @@
         <customer id="9002" first_name="Jane" last_name="Smith" email="janesmith@email.com"/>
     </customers>
     <users>
-        <user id="10001" username="johndoe" email="johndoe@gmail.com" password="password"/>
+        <user id="10001" username="johndoe" email="johndoe@gmail.com" password="password" role_id="1" store_id="1"/>
         <user id="10002" username="janesmith" email="janesmith@gmail.com" password="password"/>
     </users>
 </supermarket>

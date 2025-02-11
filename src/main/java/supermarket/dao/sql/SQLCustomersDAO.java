@@ -1,7 +1,7 @@
 package supermarket.dao.sql;
 
 import supermarket.dao.ICustomersDAO;
-import supermarket.model.Customers;
+import supermarket.model.Customer;
 import supermarket.util.ConnectionPool;
 
 import java.sql.Connection;
@@ -20,7 +20,7 @@ public class SQLCustomersDAO extends SQLAbstractDAO implements ICustomersDAO {
 
 
     @Override
-    public Customers get(long id) {
+    public Customer get(long id) {
         String query = "SELECT * FROM customers WHERE customer_id = ?";
         Connection connection = null;
         try {
@@ -29,7 +29,7 @@ public class SQLCustomersDAO extends SQLAbstractDAO implements ICustomersDAO {
                 statement.setLong(1, id);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
-                        return new Customers(
+                        return new Customer(
                                 resultSet.getLong("customer_id"),
                                 resultSet.getString("first_name"),
                                 resultSet.getString("last_name"),
@@ -51,7 +51,7 @@ public class SQLCustomersDAO extends SQLAbstractDAO implements ICustomersDAO {
     }
 
     @Override
-    public long save(Customers customer) {
+    public long save(Customer customer) {
         String query = "INSERT INTO customers (first_name, last_name, email, birth_date, contact_number) VALUES (?, ?, ?, ?, ?)";
         Connection connection = null;
         try {
@@ -82,7 +82,7 @@ public class SQLCustomersDAO extends SQLAbstractDAO implements ICustomersDAO {
     }
 
     @Override
-    public void update(Customers customer) {
+    public void update(Customer customer) {
         String query = "UPDATE customers SET first_name = ?, last_name = ?, email = ?, contact_number = ? WHERE customer_id = ?";
         Connection connection = null;
         try {
@@ -105,7 +105,7 @@ public class SQLCustomersDAO extends SQLAbstractDAO implements ICustomersDAO {
     }
 
     @Override
-    public void delete(Customers customer) {
+    public void delete(Customer customer) {
         String query = "DELETE FROM customers WHERE customer_id = ?";
         Connection connection = null;
         try {
@@ -124,8 +124,8 @@ public class SQLCustomersDAO extends SQLAbstractDAO implements ICustomersDAO {
     }
 
     @Override
-    public List<Customers> getAll() {
-        List<Customers> customers = new ArrayList<>();
+    public List<Customer> getAll() {
+        List<Customer> customers = new ArrayList<>();
         String query = "SELECT * FROM customers";
         Connection connection = null;
         try {
@@ -133,7 +133,7 @@ public class SQLCustomersDAO extends SQLAbstractDAO implements ICustomersDAO {
             try (PreparedStatement statement = connection.prepareStatement(query);
                  ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    customers.add(new Customers(
+                    customers.add(new Customer(
                             resultSet.getLong("customer_id"),
                             resultSet.getString("first_name"),
                             resultSet.getString("last_name"),

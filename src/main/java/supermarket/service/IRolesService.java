@@ -1,6 +1,6 @@
 package supermarket.service;
 
-import supermarket.model.Roles;
+import supermarket.model.Role;
 
-public interface IRolesService extends IService<Roles> {
+public interface IRolesService extends IService<Role> {
 }

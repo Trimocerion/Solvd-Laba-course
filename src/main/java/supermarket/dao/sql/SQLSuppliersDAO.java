@@ -1,7 +1,7 @@
 package supermarket.dao.sql;
 
 import supermarket.dao.ISuppliersDAO;
-import supermarket.model.Suppliers;
+import supermarket.model.Supplier;
 import supermarket.util.ConnectionPool;
 
 import java.sql.Connection;
@@ -18,14 +18,14 @@ public class SQLSuppliersDAO extends SQLAbstractDAO implements ISuppliersDAO {
     }
 
     @Override
-    public Suppliers get(long id) {
+    public Supplier get(long id) {
         String query = "SELECT * FROM suppliers WHERE supplier_id = ?";
         try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return new Suppliers(
+                return new Supplier(
                         resultSet.getLong("supplier_id"),
                         resultSet.getString("name"),
                         resultSet.getString("contact_number"),
@@ -40,7 +40,7 @@ public class SQLSuppliersDAO extends SQLAbstractDAO implements ISuppliersDAO {
     }
 
     @Override
-    public long save(Suppliers supplier) {
+    public long save(Supplier supplier) {
         String query = "INSERT INTO suppliers (name, contact_number, email, address) VALUES (?, ?, ?, ?)";
         try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -64,7 +64,7 @@ public class SQLSuppliersDAO extends SQLAbstractDAO implements ISuppliersDAO {
     }
 
     @Override
-    public void update(Suppliers supplier) {
+    public void update(Supplier supplier) {
         String query = "UPDATE suppliers SET name = ?, contact_number = ?, email = ?, address = ? WHERE supplier_id = ?";
         try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -80,7 +80,7 @@ public class SQLSuppliersDAO extends SQLAbstractDAO implements ISuppliersDAO {
     }
 
     @Override
-    public void delete(Suppliers supplier) {
+    public void delete(Supplier supplier) {
         String query = "DELETE FROM suppliers WHERE supplier_id = ?";
         try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -92,14 +92,14 @@ public class SQLSuppliersDAO extends SQLAbstractDAO implements ISuppliersDAO {
     }
 
     @Override
-    public List<Suppliers> getAll() {
-        List<Suppliers> suppliers = new ArrayList<>();
+    public List<Supplier> getAll() {
+        List<Supplier> suppliers = new ArrayList<>();
         String query = "SELECT * FROM suppliers";
         try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                suppliers.add(new Suppliers(
+                suppliers.add(new Supplier(
                         resultSet.getLong("supplier_id"),
                         resultSet.getString("name"),
                         resultSet.getString("contact_number"),

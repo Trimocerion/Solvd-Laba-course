@@ -1,6 +1,6 @@
 package supermarket.service;
 
-import supermarket.model.Users;
+import supermarket.model.User;
 
-public interface IUsersService extends IService<Users> {
+public interface IUsersService extends IService<User> {
 }

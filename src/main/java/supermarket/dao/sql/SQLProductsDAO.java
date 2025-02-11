@@ -1,7 +1,7 @@
 package supermarket.dao.sql;
 
 import supermarket.dao.IProductsDAO;
-import supermarket.model.Products;
+import supermarket.model.Product;
 import supermarket.util.ConnectionPool;
 
 import java.sql.Connection;
@@ -18,14 +18,14 @@ public class SQLProductsDAO extends SQLAbstractDAO implements IProductsDAO {
     }
 
     @Override
-    public Products get(long id) {
+    public Product get(long id) {
         String query = "SELECT * FROM products WHERE product_id = ?";
         try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return new Products(
+                return new Product(
                         resultSet.getLong("product_id"),
                         resultSet.getString("name"),
                         resultSet.getString("description"),
@@ -40,7 +40,7 @@ public class SQLProductsDAO extends SQLAbstractDAO implements IProductsDAO {
     }
 
     @Override
-    public long save(Products product) {
+    public long save(Product product) {
         String query = "INSERT INTO products (name, description, price, category_id) VALUES (?, ?, ?, ?)";
         try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -63,7 +63,7 @@ public class SQLProductsDAO extends SQLAbstractDAO implements IProductsDAO {
     }
 
     @Override
-    public void update(Products product) {
+    public void update(Product product) {
         String query = "UPDATE products SET name = ?, description = ?, price = ?, category_id = ? WHERE product_id = ?";
         try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -79,7 +79,7 @@ public class SQLProductsDAO extends SQLAbstractDAO implements IProductsDAO {
     }
 
     @Override
-    public void delete(Products product) {
+    public void delete(Product product) {
         String query = "DELETE FROM products WHERE product_id = ?";
         try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -91,14 +91,14 @@ public class SQLProductsDAO extends SQLAbstractDAO implements IProductsDAO {
     }
 
     @Override
-    public List<Products> getAll() {
-        List<Products> products = new ArrayList<>();
+    public List<Product> getAll() {
+        List<Product> products = new ArrayList<>();
         String query = "SELECT * FROM products";
         try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                products.add(new Products(
+                products.add(new Product(
                         resultSet.getLong("product_id"),
                         resultSet.getString("name"),
                         resultSet.getString("description"),

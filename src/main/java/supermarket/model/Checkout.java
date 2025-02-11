@@ -11,18 +11,20 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonPropertyOrder({"checkout_id", "store_id", "is_active"})
 public class Checkout {
+
     @XmlElement(name = "checkout_id")
     @JsonProperty("checkout_id")
     private long checkoutId;
+
     @XmlElement(name = "store_id")
     @JsonProperty("store_id")
     private long storeId;
+
     @XmlElement(name = "is_active")
     @JsonProperty("is_active")
     private boolean isActive;
 
-    public Checkout() {
-    }
+    public Checkout() {}
 
     public Checkout(long storeId, boolean isActive) {
         this.storeId = storeId;
@@ -30,7 +32,6 @@ public class Checkout {
     }
 
     public Checkout(long checkoutId, long storeId, boolean isActive) {
-
         this.checkoutId = checkoutId;
         this.storeId = storeId;
         this.isActive = isActive;
@@ -52,11 +53,20 @@ public class Checkout {
         this.storeId = storeId;
     }
 
-    public boolean isActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setIsActive(boolean active) {
+        this.isActive = active;
+    }
+
+    @Override
+    public String toString() {
+        return "Checkout{" +
+                "checkoutId=" + checkoutId +
+                ", storeId=" + storeId +
+                ", isActive=" + isActive +
+                '}';
     }
 }

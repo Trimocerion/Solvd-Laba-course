@@ -1,6 +1,6 @@
 package supermarket.service.impl;
 
-import supermarket.model.Products;
+import supermarket.model.Product;
 import supermarket.service.IProductsService;
 
 import java.util.List;
@@ -15,27 +15,27 @@ public class ProductsService implements IProductsService {
 
 
     @Override
-    public Products get(long id) {
+    public Product get(long id) {
         return productsDao.get(id);
     }
 
     @Override
-    public long save(Products products) {
-        return productsDao.save(products);
+    public long save(Product product) {
+        return productsDao.save(product);
     }
 
     @Override
-    public void update(Products products) {
-        productsDao.update(products);
+    public void update(Product product) {
+        productsDao.update(product);
     }
 
     @Override
-    public void delete(Products products) {
-        productsDao.delete(products);
+    public void delete(Product product) {
+        productsDao.delete(product);
     }
 
     @Override
-    public List<Products> getAll() {
+    public List<Product> getAll() {
         return productsDao.getAll();
     }
 }

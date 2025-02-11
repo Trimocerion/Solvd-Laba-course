@@ -1,7 +1,7 @@
 package supermarket.dao.sql;
 
 import supermarket.dao.IRolesDAO;
-import supermarket.model.Roles;
+import supermarket.model.Role;
 import supermarket.util.ConnectionPool;
 
 import java.sql.Connection;
@@ -18,14 +18,14 @@ public class SQLRolesDAO extends SQLAbstractDAO implements IRolesDAO {
     }
 
     @Override
-    public Roles get(long id) {
+    public Role get(long id) {
         String query = "SELECT * FROM Roles WHERE role_id = ?";
         try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return new Roles(
+                return new Role(
                         resultSet.getLong("role_id"),
                         resultSet.getString("name"),
                         resultSet.getString("description")
@@ -38,7 +38,7 @@ public class SQLRolesDAO extends SQLAbstractDAO implements IRolesDAO {
     }
 
     @Override
-    public long save(Roles role) {
+    public long save(Role role) {
         String query = "INSERT INTO Roles (name, description) VALUES (?, ?)";
         try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -59,7 +59,7 @@ public class SQLRolesDAO extends SQLAbstractDAO implements IRolesDAO {
     }
 
     @Override
-    public void update(Roles role) {
+    public void update(Role role) {
         String query = "UPDATE Roles SET name = ?, description = ? WHERE role_id = ?";
         try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -73,7 +73,7 @@ public class SQLRolesDAO extends SQLAbstractDAO implements IRolesDAO {
     }
 
     @Override
-    public void delete(Roles role) {
+    public void delete(Role role) {
         String query = "DELETE FROM Roles WHERE role_id = ?";
         try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -85,14 +85,14 @@ public class SQLRolesDAO extends SQLAbstractDAO implements IRolesDAO {
     }
 
     @Override
-    public List<Roles> getAll() {
-        List<Roles> roles = new ArrayList<>();
+    public List<Role> getAll() {
+        List<Role> roles = new ArrayList<>();
         String query = "SELECT * FROM Roles";
         try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                roles.add(new Roles(
+                roles.add(new Role(
                         resultSet.getLong("role_id"),
                         resultSet.getString("role_name"),
                         resultSet.getString("description")

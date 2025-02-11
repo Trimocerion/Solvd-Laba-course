@@ -56,7 +56,7 @@ public class SQLCheckoutDAO extends SQLAbstractDAO implements ICheckoutDAO {
         try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, checkout.getStoreId());
-            statement.setBoolean(2, checkout.isActive());
+            statement.setBoolean(2, checkout.getIsActive());
             statement.executeUpdate();
             try (ResultSet resultSet = statement.getGeneratedKeys()) {
                 if (resultSet.next()) {
@@ -76,7 +76,7 @@ public class SQLCheckoutDAO extends SQLAbstractDAO implements ICheckoutDAO {
         try (Connection connection = getConnectionPool().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, checkout.getStoreId());
-            statement.setBoolean(2, checkout.isActive());
+            statement.setBoolean(2, checkout.getIsActive());
             statement.setLong(3, checkout.getCheckoutId());
             statement.executeUpdate();
         } catch (SQLException e) {

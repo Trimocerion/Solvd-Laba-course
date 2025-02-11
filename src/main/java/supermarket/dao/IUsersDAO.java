@@ -1,6 +1,6 @@
 package supermarket.dao;
 
-import supermarket.model.Users;
+import supermarket.model.User;
 
-public interface IUsersDAO extends IDAO<Users> {
+public interface IUsersDAO extends IDAO<User> {
 }

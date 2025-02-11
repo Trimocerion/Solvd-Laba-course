@@ -9,20 +9,20 @@ import jakarta.xml.bind.annotation.*;
 @JsonPropertyOrder({"store_id", "address", "postal_code"})
 public class Store {
 
-    @XmlElement(name = "store_id")
+    @XmlAttribute(name = "id")
     @JsonProperty("store_id")
     private long storeId;
-    @XmlElement(name = "address")
+    @XmlAttribute(name = "address")
     @JsonProperty("address")
     private String address;
-    @XmlElement(name = "postal_code")
+    @XmlAttribute(name = "postal_code")
     @JsonProperty("postal_code")
     private String postalCode;
 
     public Store() {
     }
 
-    public Store(String name, String address, String postalCode) {
+    public Store(String address, String postalCode) {
         this.address = address;
         this.postalCode = postalCode;
     }
@@ -55,5 +55,15 @@ public class Store {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Store{" +
+                "storeId=" + storeId +
+                ", address='" + address + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                '}';
     }
 }

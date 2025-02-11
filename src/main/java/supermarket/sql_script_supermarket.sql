@@ -10,7 +10,7 @@ INSERT INTO Products (name, description, price, quantity, category_id) VALUES ('
 
 INSERT INTO Product_categories (name, description) VALUES ('Fruits', 'testval');
 INSERT INTO Product_categories  (name, description) VALUES ('Drinks', 'testval');
-INSERT INTO Product_categories  (name, description) VALUES ('Dairy','Milk, cheese, and other dairy products.');
+INSERT INTO Product_categories  (name, description) VALUES ('Dairy','Milk, cheese, and other dairy product.');
 INSERT INTO Product_categories  (name, description) VALUES ('Meat', 'testval');
 INSERT INTO Product_categories  (name, description) VALUES ('del8', 'testval');
 INSERT INTO Product_categories  (name, description) VALUES ('del9', 'testval');
@@ -22,7 +22,7 @@ INSERT INTO Store (address, postal_code) VALUES ('123 Main St', '12345');
 INSERT INTO Store (address, postal_code) VALUES ('del7', '123');
 
 
-INSERT INTO Roles (name, description) VALUES ('Manager', 'Manages the store and users.');
+INSERT INTO Roles (name, description) VALUES ('Manager', 'Manages the store and user.');
 INSERT INTO Roles (name, description) VALUES ('Cashier', 'TEST');
 INSERT INTO Roles (name, description) VALUES ('Security Guard', 'TEST');
 INSERT INTO Roles (name, description) VALUES ('IT Support', 'Manages IT systems and troubleshooting.');

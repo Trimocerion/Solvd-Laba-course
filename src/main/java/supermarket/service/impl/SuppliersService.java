@@ -1,6 +1,6 @@
 package supermarket.service.impl;
 
-import supermarket.model.Suppliers;
+import supermarket.model.Supplier;
 import supermarket.service.ISuppliersService;
 
 import java.util.List;
@@ -14,27 +14,27 @@ public class SuppliersService implements ISuppliersService {
 
 
     @Override
-    public Suppliers get(long id) {
+    public Supplier get(long id) {
         return suppliersDAO.get(id);
     }
 
     @Override
-    public long save(Suppliers suppliers) {
-        return suppliersDAO.save(suppliers);
+    public long save(Supplier supplier) {
+        return suppliersDAO.save(supplier);
     }
 
     @Override
-    public void update(Suppliers suppliers) {
-        suppliersDAO.update(suppliers);
+    public void update(Supplier supplier) {
+        suppliersDAO.update(supplier);
     }
 
     @Override
-    public void delete(Suppliers suppliers) {
-        suppliersDAO.delete(suppliers);
+    public void delete(Supplier supplier) {
+        suppliersDAO.delete(supplier);
     }
 
     @Override
-    public List<Suppliers> getAll() {
+    public List<Supplier> getAll() {
         return suppliersDAO.getAll();
     }
 }

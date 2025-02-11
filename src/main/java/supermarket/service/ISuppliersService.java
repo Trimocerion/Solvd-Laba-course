@@ -1,6 +1,6 @@
 package supermarket.service;
 
-import supermarket.model.Suppliers;
+import supermarket.model.Supplier;
 
-public interface ISuppliersService extends IService<Suppliers> {
+public interface ISuppliersService extends IService<Supplier> {
 }

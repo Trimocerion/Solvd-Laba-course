@@ -1,6 +1,6 @@
 package supermarket.service.impl;
 
-import supermarket.model.Roles;
+import supermarket.model.Role;
 import supermarket.service.IRolesService;
 
 import java.util.List;
@@ -14,27 +14,27 @@ public class RolesService implements IRolesService {
     }
 
     @Override
-    public Roles get(long id) {
+    public Role get(long id) {
         return rolesDAO.get(id);
     }
 
     @Override
-    public long save(Roles roles) {
-        return rolesDAO.save(roles);
+    public long save(Role role) {
+        return rolesDAO.save(role);
     }
 
     @Override
-    public void update(Roles roles) {
-        rolesDAO.update(roles);
+    public void update(Role role) {
+        rolesDAO.update(role);
     }
 
     @Override
-    public void delete(Roles roles) {
-        rolesDAO.delete(roles);
+    public void delete(Role role) {
+        rolesDAO.delete(role);
     }
 
     @Override
-    public List<Roles> getAll() {
+    public List<Role> getAll() {
         return rolesDAO.getAll();
     }
 }

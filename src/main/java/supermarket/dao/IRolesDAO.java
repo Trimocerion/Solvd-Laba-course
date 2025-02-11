@@ -1,6 +1,6 @@
 package supermarket.dao;
 
-import supermarket.model.Roles;
+import supermarket.model.Role;
 
-public interface IRolesDAO extends IDAO<Roles> {
+public interface IRolesDAO extends IDAO<Role> {
 }

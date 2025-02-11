@@ -1,6 +1,6 @@
 package supermarket.dao;
 
-import supermarket.model.Suppliers;
+import supermarket.model.Supplier;
 
-public interface ISuppliersDAO extends IDAO<Suppliers> {
+public interface ISuppliersDAO extends IDAO<Supplier> {
 }

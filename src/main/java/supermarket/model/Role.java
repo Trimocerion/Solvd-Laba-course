@@ -11,7 +11,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "roles")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonPropertyOrder({"role_id", "name", "description"})
-public class Roles {
+public class Role {
 
     @XmlElement(name = "role_id")
     @JsonProperty("role_id")
@@ -23,15 +23,15 @@ public class Roles {
     @JsonProperty("description")
     private String description;
 
-    public Roles() {
+    public Role() {
     }
 
-    public Roles(String roleName, String description) {
+    public Role(String roleName, String description) {
         this.name = roleName;
         this.description = description;
     }
 
-    public Roles(long roleId, String roleName, String description) {
+    public Role(long roleId, String roleName, String description) {
         this.roleId = roleId;
         this.name = roleName;
         this.description = description;

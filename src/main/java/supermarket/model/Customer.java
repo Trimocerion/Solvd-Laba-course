@@ -3,41 +3,38 @@ package supermarket.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.*;
 
 import java.sql.Time;
 
-@XmlRootElement(name = "customers")
+@XmlRootElement(name = "customer")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonPropertyOrder({"customerId", "firstName", "lastName", "email", "birthDate", "contactNumber"})
-public class Customers {
+public class Customer {
 
-    @XmlElement(name = "customer_id")
+    @XmlAttribute(name = "id")
     @JsonProperty("customer_id")
     private long customerId;
-    @XmlElement(name = "first_name")
+    @XmlAttribute(name = "first_name")
     @JsonProperty("first_name")
     private String firstName;
-    @XmlElement(name = "last_name")
+    @XmlAttribute(name = "last_name")
     @JsonProperty("last_name")
     private String lastName;
-    @XmlElement(name = "email")
+    @XmlAttribute(name = "email")
     @JsonProperty("email")
     private String email;
     @XmlElement(name = "birth_date")
     @JsonProperty("birth_date")
     private Time birthDate;
-    @XmlElement(name = "contact_number")
+    @XmlAttribute(name = "contact_number")
     @JsonProperty("contact_number")
     private String contactNumber;
 
-    public Customers() {
+    public Customer() {
     }
 
-    public Customers(String firstName, String lastName, String email, Time birthDate, String contactNumber) {
+    public Customer(String firstName, String lastName, String email, Time birthDate, String contactNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -45,7 +42,7 @@ public class Customers {
         this.contactNumber = contactNumber;
     }
 
-    public Customers(long customerId, String firstName, String lastName, String email, Time birthDate, String contactNumber) {
+    public Customer(long customerId, String firstName, String lastName, String email, Time birthDate, String contactNumber) {
         this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -100,5 +97,17 @@ public class Customers {
 
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerId=" + customerId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", birthDate=" + birthDate +
+                ", contactNumber='" + contactNumber + '\'' +
+                '}';
     }
 }

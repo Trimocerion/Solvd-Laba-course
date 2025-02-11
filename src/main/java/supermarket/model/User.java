@@ -2,34 +2,31 @@ package supermarket.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.*;
 
 import java.sql.Time;
 
-@XmlRootElement(name = "users")
+@XmlRootElement(name = "user")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonPropertyOrder({"user_id", "username", "email", "password", "role_id", "store_id", "created_at"})
-public class Users {
+public class User {
 
-    @XmlElement(name = "user_id")
+    @XmlAttribute(name = "id")
     @JsonProperty("user_id")
     private long userId;
-    @XmlElement(name = "username")
+    @XmlAttribute(name = "username")
     @JsonProperty("username")
     private String username;
-    @XmlElement(name = "email")
+    @XmlAttribute(name = "email")
     @JsonProperty("email")
     private String email;
-    @XmlElement(name = "password")
+    @XmlAttribute(name = "password")
     @JsonProperty("password")
     private String password;
-    @XmlElement(name = "role_id")
+    @XmlAttribute(name = "role_id")
     @JsonProperty("role_id")
     private long roleId;
-    @XmlElement(name = "store_id")
+    @XmlAttribute(name = "store_id")
     @JsonProperty("store_id")
     private long storeId;
     @XmlElement(name = "created_at")
@@ -37,10 +34,10 @@ public class Users {
     private Time createdAt;
 
 
-    public Users() {
+    public User() {
     }
 
-    public Users(String username, String email, String password, long roleId, long storeId) {
+    public User(String username, String email, String password, long roleId, long storeId) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -48,7 +45,7 @@ public class Users {
         this.storeId = storeId;
     }
 
-    public Users(long userId, String username, String email, String password, long roleId, long storeId, Time createdAt) {
+    public User(long userId, String username, String email, String password, long roleId, long storeId, Time createdAt) {
         this.userId = userId;
         this.username = username;
         this.email = email;
@@ -112,5 +109,18 @@ public class Users {
 
     public void setCreatedAt(Time createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", roleId=" + roleId +
+                ", storeId=" + storeId +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

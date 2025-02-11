@@ -1,6 +1,6 @@
 package supermarket.service.impl;
 
-import supermarket.model.Customers;
+import supermarket.model.Customer;
 import supermarket.service.ICustomersService;
 
 import java.util.List;
@@ -13,27 +13,27 @@ public class CustomersService implements ICustomersService {
     }
 
     @Override
-    public Customers get(long id) {
+    public Customer get(long id) {
         return customersDAO.get(id);
     }
 
     @Override
-    public long save(Customers customers) {
-        return customersDAO.save(customers);
+    public long save(Customer customer) {
+        return customersDAO.save(customer);
     }
 
     @Override
-    public void update(Customers customers) {
-        customersDAO.update(customers);
+    public void update(Customer customer) {
+        customersDAO.update(customer);
     }
 
     @Override
-    public void delete(Customers customers) {
-        customersDAO.delete(customers);
+    public void delete(Customer customer) {
+        customersDAO.delete(customer);
     }
 
     @Override
-    public List<Customers> getAll() {
+    public List<Customer> getAll() {
         return customersDAO.getAll();
     }
 }
