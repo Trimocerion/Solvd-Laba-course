@@ -1,16 +1,17 @@
 package supermarket.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.xml.bind.annotation.*;
 
 @XmlRootElement(name = "store")
 @XmlAccessorType(XmlAccessType.FIELD)
-@JsonPropertyOrder({"store_id", "address", "postal_code"})
+@JsonPropertyOrder({"id", "address", "postal_code"})
 public class Store {
 
     @XmlAttribute(name = "id")
-    @JsonProperty("store_id")
+    @JsonProperty("id")
     private long storeId;
     @XmlAttribute(name = "address")
     @JsonProperty("address")

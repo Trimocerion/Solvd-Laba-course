@@ -30,6 +30,7 @@ public class SQLProductsDAO extends SQLAbstractDAO implements IProductsDAO {
                         resultSet.getString("name"),
                         resultSet.getString("description"),
                         resultSet.getDouble("price"),
+                        resultSet.getInt("quantity"),
                         resultSet.getLong("category_id")
                 );
             }
@@ -103,6 +104,7 @@ public class SQLProductsDAO extends SQLAbstractDAO implements IProductsDAO {
                         resultSet.getString("name"),
                         resultSet.getString("description"),
                         resultSet.getDouble("price"),
+                        resultSet.getInt("quantity"),
                         resultSet.getLong("category_id")
                 ));
             }

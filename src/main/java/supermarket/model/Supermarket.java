@@ -1,5 +1,7 @@
 package supermarket.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.xml.bind.annotation.*;
 
 import java.util.List;
@@ -10,18 +12,22 @@ public class Supermarket {
 
     @XmlElementWrapper(name = "stores")
     @XmlElement(name = "store")
+    @JsonProperty("stores")
     private List<Store> stores;
 
     @XmlElementWrapper(name = "products")
     @XmlElement(name = "product")
+    @JsonProperty("products")
     private List<Product> products;
 
     @XmlElementWrapper(name = "customers")
     @XmlElement(name = "customer")
+    @JsonProperty("customers")
     private List<Customer> customers;
 
     @XmlElementWrapper(name = "users")
     @XmlElement(name = "user")
+    @JsonProperty("users")
     private List<User> users;
 
     public Supermarket() {}

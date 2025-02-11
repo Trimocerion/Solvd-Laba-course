@@ -1,70 +1,59 @@
 {
-  "stores": [
-    {
-      "id": 1,
-      "address": "123 Main St",
-      "postal_code": "12345",
-      "checkout": [
-        {
-          "id": 101,
-          "is_active": true
-        },
-        {
-          "id": 102,
-          "is_active": false
-        }
-      ]
-    },
+  "stores":[ {
+    "id": 1,
+    "address": "123 Main St",
+    "postal_code": "12345"
+  },
     {
       "id": 2,
       "address": "456 Elm St",
-      "postal_code": "67890",
-      "checkout": [
-        {
-          "id": 201,
-          "is_active": true
-        }
-      ]
+      "postal_code": "67890"
     }
-  ],
+    ],
   "products": [
     {
-      "id": 5001,
-      "name": "Apple",
-      "price": 0.99
+      "_id": "5001",
+      "_name": "Apple",
+      "_price": "0.99"
     },
     {
-      "id": 5002,
-      "name": "Milk",
-      "price": 2.49
+      "_id": "5002",
+      "_name": "Milk",
+      "_price": "2.49"
     }
   ],
   "customers": [
     {
-      "id": 9001,
-      "first_name": "John",
-      "last_name": "Doe",
-      "email": "johndoe@email.com"
+      "_id": "9001",
+      "_first_name": "John",
+      "_last_name": "Doe",
+      "_email": "johndoe@email.com"
     },
     {
-      "id": 9002,
-      "first_name": "Jane",
-      "last_name": "Smith",
-      "email": "janesmith@email.com"
+      "_id": "9002",
+      "_first_name": "Jane",
+      "_last_name": "Smith",
+      "_email": "janesmith@email.com"
     }
   ],
   "users": [
     {
-      "id": 10001,
+      "user_id": 10001,
       "username": "johndoe",
       "email": "johndoe@gmail.com",
-      "password": "password"
+      "password": "password123",
+      "role_id": 1,
+      "store_id": 1,
+      "created_at": "12:30:00"
     },
     {
-      "id": 10002,
+      "user_id": 10002,
       "username": "janesmith",
       "email": "janesmith@gmail.com",
-      "password": "password"
+      "password": "password456",
+      "role_id": 2,
+      "store_id": 2,
+      "created_at": "14:45:00"
     }
   ]
 }

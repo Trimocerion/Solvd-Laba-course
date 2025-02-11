@@ -9,26 +9,26 @@ import java.sql.Time;
 
 @XmlRootElement(name = "customer")
 @XmlAccessorType(XmlAccessType.FIELD)
-@JsonPropertyOrder({"customerId", "firstName", "lastName", "email", "birthDate", "contactNumber"})
+@JsonPropertyOrder({"_id", "_first_name", "_last_name", "_email", "_birth_date", "_contact_number"})
 public class Customer {
 
     @XmlAttribute(name = "id")
-    @JsonProperty("customer_id")
+    @JsonProperty("_id")
     private long customerId;
     @XmlAttribute(name = "first_name")
-    @JsonProperty("first_name")
+    @JsonProperty("_first_name")
     private String firstName;
     @XmlAttribute(name = "last_name")
-    @JsonProperty("last_name")
+    @JsonProperty("_last_name")
     private String lastName;
-    @XmlAttribute(name = "email")
-    @JsonProperty("email")
+    @XmlAttribute(name = "_email")
+    @JsonProperty("_email")
     private String email;
     @XmlElement(name = "birth_date")
-    @JsonProperty("birth_date")
+    @JsonProperty("_birth_date")
     private Time birthDate;
     @XmlAttribute(name = "contact_number")
-    @JsonProperty("contact_number")
+    @JsonProperty("_contact_number")
     private String contactNumber;
 
     public Customer() {

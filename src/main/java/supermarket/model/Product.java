@@ -6,26 +6,26 @@ import jakarta.xml.bind.annotation.*;
 
 @XmlRootElement(name = "products")
 @XmlAccessorType(XmlAccessType.FIELD)
-@JsonPropertyOrder({"product_id", "name", "description", "price", "quantity", "category_id"})
+@JsonPropertyOrder({"_id", "_name", "_description", "_price", "_quantity", "_category_id"})
 public class Product {
 
     @XmlAttribute(name = "id")
-    @JsonProperty("product_id")
+    @JsonProperty("_id")
     private long productId;
     @XmlAttribute(name = "name")
-    @JsonProperty("name")
+    @JsonProperty("_name")
     private String name;
     @XmlAttribute(name = "description")
-    @JsonProperty("description")
+    @JsonProperty("_description")
     private String description;
     @XmlAttribute(name = "price")
-    @JsonProperty("price")
+    @JsonProperty("_price")
     private double price;
     @XmlAttribute(name = "quantity")
-    @JsonProperty("quantity")
+    @JsonProperty("_quantity")
     private int quantity;
     @XmlAttribute(name = "category_id")
-    @JsonProperty("category_id")
+    @JsonProperty("_category_id")
     private long categoryId;
 
     public Product() {
@@ -39,11 +39,12 @@ public class Product {
     }
 
 
-    public Product(long productId, String name, String description, double price, long categoryId) {
+    public Product(long productId, String name, String description, double price, int quantity, long categoryId) {
         this.productId = productId;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.quantity = quantity;
         this.categoryId = categoryId;
 
     }
