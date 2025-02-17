@@ -1,0 +1,24 @@
+<mapper namespace="supermarket.mapper.ICheckoutMapper">
+
+    <select id="get" resultType="supermarket.model.Checkout">
+        SELECT * FROM Checkout WHERE checkout_id = #{id}
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="checkout_id">
+        INSERT INTO Checkout (store_id, is_active)
+        VALUES (#{storeId}, #{isActive})
+    </insert>
+
+    <update id="update">
+        UPDATE Checkout SET store_id=#{storeId}, is_active=#{isActive} WHERE checkout_id=#{checkout_id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM Checkout WHERE checkout_id=#{id}
+    </delete>
+
+    <select id="getAll" resultType="supermarket.model.Checkout">
+        SELECT * FROM Checkout
+    </select>
+
+</mapper>

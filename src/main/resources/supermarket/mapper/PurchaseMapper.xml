@@ -1,0 +1,25 @@
+<mapper namespace="supermarket.mapper.IPurchaseMapper">
+
+    <select id="get" resultType="supermarket.model.Purchase">
+        SELECT * FROM Purchase WHERE purchase_id = #{id}
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="purchase_id">
+        INSERT INTO Purchase (payment_method_id, customer_id, checkout_id, store_id, user_id, created_at)
+        VALUES (#{paymentMethodId}, #{customerId}, #{checkoutId}, #{storeId}, #{userId}, NOW())
+    </insert>
+
+    <update id="update">
+        UPDATE Purchase SET payment_method_id=#{paymentMethodId}, customer_id=#{customerId},
+        checkout_id=#{checkoutId}, store_id=#{storeId}, user_id=#{userId} WHERE purchase_id=#{purchase_id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM Purchase WHERE purchase_id=#{id}
+    </delete>
+
+    <select id="getAll" resultType="supermarket.model.Purchase">
+        SELECT * FROM Purchase
+    </select>
+
+</mapper>

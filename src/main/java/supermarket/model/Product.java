@@ -6,26 +6,25 @@ import jakarta.xml.bind.annotation.*;
 
 @XmlRootElement(name = "products")
 @XmlAccessorType(XmlAccessType.FIELD)
-@JsonPropertyOrder({"_id", "_name", "_description", "_price", "_quantity", "_category_id"})
 public class Product {
 
     @XmlAttribute(name = "id")
-    @JsonProperty("_id")
+    @JsonProperty("id")
     private long productId;
     @XmlAttribute(name = "name")
-    @JsonProperty("_name")
+    @JsonProperty("name")
     private String name;
     @XmlAttribute(name = "description")
-    @JsonProperty("_description")
+    @JsonProperty("description")
     private String description;
     @XmlAttribute(name = "price")
-    @JsonProperty("_price")
+    @JsonProperty("price")
     private double price;
     @XmlAttribute(name = "quantity")
     @JsonProperty("_quantity")
     private int quantity;
     @XmlAttribute(name = "category_id")
-    @JsonProperty("_category_id")
+    @JsonProperty("category_id")
     private long categoryId;
 
     public Product() {

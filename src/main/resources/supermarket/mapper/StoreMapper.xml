@@ -1,0 +1,24 @@
+<mapper namespace="supermarket.mapper.IStoreMapper">
+
+    <select id="get" resultType="supermarket.model.Store">
+        SELECT * FROM Store WHERE store_id = #{id}
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="store_id">
+        INSERT INTO Store (address, postal_code)
+        VALUES (#{address}, #{postalCode})
+    </insert>
+
+    <update id="update">
+        UPDATE Store SET address=#{address}, postal_code=#{postalCode} WHERE store_id=#{store_id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM Store WHERE store_id=#{id}
+    </delete>
+
+    <select id="getAll" resultType="supermarket.model.Store">
+        SELECT * FROM Store
+    </select>
+
+</mapper>

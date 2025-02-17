@@ -1,0 +1,26 @@
+<mapper namespace="supermarket.mapper.ICustomerMapper">
+
+    <select id="get" resultType="supermarket.model.Customer">
+        SELECT * FROM Customers WHERE customer_id = #{id}
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="customer_id">
+        INSERT INTO Customers (first_name, last_name, email, birth_date, contact_number)
+        VALUES (#{firstName}, #{lastName}, #{email}, #{birthDate}, #{contactNumber})
+    </insert>
+
+    <update id="update">
+        UPDATE Customers SET first_name=#{firstName}, last_name=#{lastName},
+        email=#{email}, birth_date=#{birthDate}, contact_number=#{contactNumber}
+        WHERE customer_id=#{customer_id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM Customers WHERE customer_id=#{id}
+    </delete>
+
+    <select id="getAll" resultType="supermarket.model.Customer">
+        SELECT * FROM Customers
+    </select>
+
+</mapper>

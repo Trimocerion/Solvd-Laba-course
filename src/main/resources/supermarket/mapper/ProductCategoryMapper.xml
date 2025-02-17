@@ -1,0 +1,23 @@
+<mapper namespace="supermarket.mapper.IProductCategoryMapper">
+
+    <select id="get" resultType="supermarket.model.ProductCategory">
+        SELECT * FROM Product_categories WHERE category_id = #{id}
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="category_id">
+        INSERT INTO Product_categories (name, description) VALUES (#{name}, #{description})
+    </insert>
+
+    <update id="update">
+        UPDATE Product_categories SET name=#{name}, description=#{description} WHERE category_id=#{category_id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM Product_categories WHERE category_id=#{id}
+    </delete>
+
+    <select id="getAll" resultType="supermarket.model.ProductCategory">
+        SELECT * FROM Product_categories
+    </select>
+
+</mapper>

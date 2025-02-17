@@ -12,28 +12,28 @@
     ],
   "products": [
     {
-      "_id": "5001",
-      "_name": "Apple",
-      "_price": "0.99"
+      "id": "5001",
+      "name": "Apple",
+      "price": "0.99"
     },
     {
-      "_id": "5002",
-      "_name": "Milk",
-      "_price": "2.49"
+      "id": "5002",
+      "name": "Milk",
+      "price": "2.49"
     }
   ],
   "customers": [
     {
-      "_id": "9001",
-      "_first_name": "John",
-      "_last_name": "Doe",
-      "_email": "johndoe@email.com"
+      "id": "9001",
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "johndoe@email.com"
     },
     {
-      "_id": "9002",
-      "_first_name": "Jane",
-      "_last_name": "Smith",
-      "_email": "janesmith@email.com"
+      "id": "9002",
+      "first_name": "Jane",
+      "last_name": "Smith",
+      "email": "janesmith@email.com"
     }
   ],
   "users": [

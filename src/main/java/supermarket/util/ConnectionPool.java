@@ -19,6 +19,8 @@ public class ConnectionPool {
         initializePool();
     }
 
+
+
     private void initializePool() throws SQLException {
         for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
             connectionPool.add(datasource.getConnection());

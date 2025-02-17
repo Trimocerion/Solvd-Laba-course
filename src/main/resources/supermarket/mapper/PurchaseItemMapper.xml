@@ -1,0 +1,25 @@
+<mapper namespace="supermarket.mapper.IPurchaseItemMapper">
+
+    <select id="get" resultType="supermarket.model.PurchaseItem">
+        SELECT * FROM Purchase_item WHERE purchase_id = #{id} AND product_id = #{productId}
+    </select>
+
+    <insert id="save">
+        INSERT INTO Purchase_item (purchase_id, product_id, quantity, price_at_purchase)
+        VALUES (#{purchaseId}, #{productId}, #{quantity}, #{priceAtPurchase})
+    </insert>
+
+    <update id="update">
+        UPDATE Purchase_item SET quantity=#{quantity}, price_at_purchase=#{priceAtPurchase}
+        WHERE purchase_id=#{purchaseId} AND product_id=#{productId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM Purchase_item WHERE purchase_id=#{purchaseId} AND product_id=#{productId}
+    </delete>
+
+    <select id="getAll" resultType="supermarket.model.PurchaseItem">
+        SELECT * FROM Purchase_item
+    </select>
+
+</mapper>

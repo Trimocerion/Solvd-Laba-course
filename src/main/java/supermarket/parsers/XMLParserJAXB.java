@@ -7,9 +7,6 @@ import supermarket.model.Supermarket;
 import java.io.File;
 
 public class XMLParserJAXB {
-
-
-    //parse supermarket.xml using jaxb
     public static void main(String[] args) {
 
         try {

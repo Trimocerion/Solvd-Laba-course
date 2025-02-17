@@ -2,9 +2,7 @@ package supermarket;
 
 import supermarket.dao.IStoreDAO;
 import supermarket.model.Store;
-import supermarket.util.ConnectionPool;
-import supermarket.util.MySQLDatasource;
-import supermarket.util.SQLDAOFactory;
+import supermarket.util.*;
 
 import java.sql.SQLException;
 
@@ -32,6 +30,13 @@ public class Main {
 
             storeDAO.delete(retrievedStore);
             System.out.println("Store deleted");
+
+            //MYBATIS
+
+            IDAOFactory myBatisFactory = DAOFactoryProvider.getDAOFactory(DatasourceType.MYBATIS);
+
+            System.out.println("MyBatis DAO (ProductMapper): " + myBatisFactory.getProductsDAO());
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

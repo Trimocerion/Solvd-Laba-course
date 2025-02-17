@@ -1,0 +1,23 @@
+<mapper namespace="supermarket.mapper.IPaymentMethodMapper">
+
+    <select id="get" resultType="supermarket.model.PaymentMethod">
+        SELECT * FROM Payment_method WHERE payment_id = #{id}
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="payment_id">
+        INSERT INTO Payment_method (name) VALUES (#{name})
+    </insert>
+
+    <update id="update">
+        UPDATE Payment_method SET name=#{name} WHERE payment_id=#{payment_id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM Payment_method WHERE payment_id=#{id}
+    </delete>
+
+    <select id="getAll" resultType="supermarket.model.PaymentMethod">
+        SELECT * FROM Payment_method
+    </select>
+
+</mapper>

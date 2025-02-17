@@ -1,0 +1,25 @@
+<mapper namespace="supermarket.mapper.IUserMapper">
+
+    <select id="get" resultType="supermarket.model.User">
+        SELECT * FROM Users WHERE user_id = #{id}
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="user_id">
+        INSERT INTO Users (username, email, password, role_id, store_id, created_at)
+        VALUES (#{username}, #{email}, #{password}, #{roleId}, #{storeId}, NOW())
+    </insert>
+
+    <update id="update">
+        UPDATE Users SET username=#{username}, email=#{email}, password=#{password},
+        role_id=#{roleId}, store_id=#{storeId} WHERE user_id=#{user_id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM Users WHERE user_id=#{id}
+    </delete>
+
+    <select id="getAll" resultType="supermarket.model.User">
+        SELECT * FROM Users
+    </select>
+
+</mapper>

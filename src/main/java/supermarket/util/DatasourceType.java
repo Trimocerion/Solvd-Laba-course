@@ -1,5 +1,5 @@
 package supermarket.util;
 
 public enum DatasourceType {
-    SQL, MONGODB
+    SQL, MONGODB, MYBATIS
 }

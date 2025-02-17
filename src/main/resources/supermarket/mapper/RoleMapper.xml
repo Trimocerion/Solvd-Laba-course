@@ -1,0 +1,23 @@
+<mapper namespace="supermarket.mapper.IRoleMapper">
+
+    <select id="get" resultType="supermarket.model.Role">
+        SELECT * FROM Roles WHERE role_id = #{id}
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="role_id">
+        INSERT INTO Roles (name, description) VALUES (#{name}, #{description})
+    </insert>
+
+    <update id="update">
+        UPDATE Roles SET name=#{name}, description=#{description} WHERE role_id=#{role_id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM Roles WHERE role_id=#{id}
+    </delete>
+
+    <select id="getAll" resultType="supermarket.model.Role">
+        SELECT * FROM Roles
+    </select>
+
+</mapper>

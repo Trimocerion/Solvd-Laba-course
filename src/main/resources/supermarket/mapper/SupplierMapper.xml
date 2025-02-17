@@ -1,0 +1,25 @@
+<mapper namespace="supermarket.mapper.ISupplierMapper">
+
+    <select id="get" resultType="supermarket.model.Supplier">
+        SELECT * FROM Suppliers WHERE supplier_id = #{id}
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="supplier_id">
+        INSERT INTO Suppliers (name, contact_number, email, address)
+        VALUES (#{name}, #{contactNumber}, #{email}, #{address})
+    </insert>
+
+    <update id="update">
+        UPDATE Suppliers SET name=#{name}, contact_number=#{contactNumber},
+        email=#{email}, address=#{address} WHERE supplier_id=#{supplier_id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM Suppliers WHERE supplier_id=#{id}
+    </delete>
+
+    <select id="getAll" resultType="supermarket.model.Supplier">
+        SELECT * FROM Suppliers
+    </select>
+
+</mapper>
